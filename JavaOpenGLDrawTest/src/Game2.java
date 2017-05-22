@@ -83,44 +83,23 @@ public class Game2 extends JFrame implements GLEventListener, MouseListener , Ke
 		
 		gl.glColor3f(0f, 0f, 1f);
 		gl.glBegin(GL2.GL_POLYGON);
-		if(mode.contains("r")) {
-			gl.glVertex3f(-0.5f, 0.5f + gravity, 0.0f);
-			gl.glVertex3f(0.5f, 0.5f + gravity, 0.0f);
-			gl.glVertex3f(0.5f, -0.5f + gravity, 0.0f);
-			gl.glVertex3f(-0.5f, -0.5f + gravity, 0.0f);
-		}else if(mode.contains("t")) {
-			gl.glVertex3f(-0.5f, -0.5f + gravity, 0.0f);
-			gl.glVertex3f(0.0f, 0.5f + gravity, 0.0f);
-			gl.glVertex3f(0.5f, -0.5f + gravity, 0.0f);
-		}else if(mode.contains("c") && !mode.equals("Unclick")) {
+		if(mode.equalsIgnoreCase("R")) {
+			gl.glVertex2f((topLeftX - 300.0f)/300.0f,(300.0f - topLeftY)/300.0f);
+			gl.glVertex2f((bottomRightX - 300.0f)/300.0f,(300.0f - topLeftY)/300.0f);
+			gl.glVertex2f((bottomRightX - 300.0f)/300.0f,(300-.0f - bottomRightY)/300.0f);
+			gl.glVertex2f((topLeftX - 300.0f)/300.0f,(300.0f - bottomRightY)/300.0f);
+		}else if(mode.equalsIgnoreCase("T")) {
+			gl.glVertex2f(((topLeftX + bottomRightX - 600.0f)/2.0f)/300.0f,(300.0f - topLeftY)/300.0f);
+			gl.glVertex2f((bottomRightX - 300.0f)/300.0f,(300-.0f - bottomRightY)/300.0f);
+			gl.glVertex2f((topLeftX - 300.0f)/300.0f,(300.0f - bottomRightY)/300.0f);
+		}else if(mode.equalsIgnoreCase("C")) {
 			for(int i=0; i<360; ++i) {
-	            gl.glVertex3f(0.5f*(float)Math.cos(i*(3.14152/180)), (float)0.5f*(float)Math.sin(i*(3.14152/180)) + gravity, 0.0f );
+				
+	            gl.glVertex3f((((topLeftX + bottomRightX - 600.0f)/2.0f)/300.0f)*(float)Math.cos(i*(3.14152/180)), (((topLeftY + bottomRightY - 600.0f)/2.0f)/300.0f*(float)Math.sin(i*(3.14152/180))), 0.0f );
 	        }
-		}else if(mode.contains("b")) {
-			gravity = 0.0f;
 		}
 		
-		if(mode.contains("G")) {
-			gravity -= 0.01f;
-			if(gravity <= -0.5f) {
-				gravity = 0.5f;
-			}
-			animator.start();
-		}
-		//gl.glPointSize(10.0f);
-		//gl.glVertex2f(0.0f, 0.0f);
-		/*
-		for(int i = 0; i < index; i ++) {
-			gl.glVertex3f(arr[i][0], arr[i][1],0.0f);
-			System.out.println("DRAW");
-		}*/
-		/*
-		for(int i = 0; i < 100; i++) {
-			gl.glVertex2f((10.0f)*i, (10.0f)*i);
-			System.out.println((10.0f)*i);
-			
-		}
-		*/
+		
 		/*
 		gl.glBegin(GL2.GL_QUADS);
 		
@@ -227,11 +206,11 @@ public class Game2 extends JFrame implements GLEventListener, MouseListener , Ke
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		/*
+		
 		topLeftX = bottomRightX = e.getX();
 		topLeftY = bottomRightY = e.getY();
-		System.out.println("old :" + topLeftX/800 + " , " + topLeftY/600);
-		*/
+		//System.out.println("old :" + topLeftX + " , " + topLeftY);
+		
 		canvas.display();
 	}
 
@@ -244,11 +223,7 @@ public class Game2 extends JFrame implements GLEventListener, MouseListener , Ke
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		String before = mode;
 		mode = e.getKeyChar() + "";
-		if(mode.equalsIgnoreCase("G")) {
-			mode = before + " + G";
-		}
 		canvas.display();
 	}
 
@@ -267,19 +242,10 @@ public class Game2 extends JFrame implements GLEventListener, MouseListener , Ke
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 		bottomRightX = e.getX();
 		bottomRightY = e.getY();
-		
-		
-		if(index<1000) {
-			arr[index][0] = (e.getX()*(2*10f))/800 - 10f;
-			arr[index][1] = -(e.getY()*(2*10f))/800 - 10f;
-			System.out.println(arr[index][0] + " , " + arr[index][1]);
-			index++;
-		}
+		//System.out.println(bottomRightX + " , " + bottomRightY);
 		canvas.display();
-		//System.out.println("now : " + bottomRightX/800 + " , " + bottomRightY/600);
 	}
 
 	@Override
