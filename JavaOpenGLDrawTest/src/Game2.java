@@ -16,7 +16,7 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.*;
 
-public class Game extends JFrame implements GLEventListener, MouseListener , KeyListener, MouseMotionListener {
+public class Game2 extends JFrame implements GLEventListener, MouseListener , KeyListener, MouseMotionListener {
 	public static DisplayMode dm, dm_old;
 	private GLU glu = new GLU();
 	private GL2 gl;
@@ -36,7 +36,7 @@ public class Game extends JFrame implements GLEventListener, MouseListener , Key
 	private int index = 0;
 	private float gravity = 0.0f;
 	
-	public Game() {
+	public Game2() {
 		super("OpenGL Test");
 		GLProfile profile = GLProfile.get(GLProfile.GL2);
 		GLCapabilities capabilities = new GLCapabilities(profile);
