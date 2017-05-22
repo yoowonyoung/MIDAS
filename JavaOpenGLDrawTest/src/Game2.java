@@ -94,8 +94,13 @@ public class Game2 extends JFrame implements GLEventListener, MouseListener , Ke
 			gl.glVertex2f((topLeftX - 300.0f)/300.0f,(300.0f - bottomRightY)/300.0f);
 		}else if(mode.equalsIgnoreCase("C")) {
 			for(int i=0; i<360; ++i) {
-				
-	            gl.glVertex3f((((topLeftX + bottomRightX - 600.0f)/2.0f)/300.0f)*(float)Math.cos(i*(3.14152/180)), (((topLeftY + bottomRightY - 600.0f)/2.0f)/300.0f*(float)Math.sin(i*(3.14152/180))), 0.0f );
+				float centerX = ((topLeftX + bottomRightX - 600.0f)/2.0f)/300.0f;
+				float lengthX = ((bottomRightX - topLeftX))/300.0f;
+				float centerY = ((600.0f- topLeftY - bottomRightY)/2.0f)/300.0f;
+				float lengthY = ( bottomRightY - topLeftY)/300.0f;
+				float radiusX = (float)(centerX + lengthX*Math.cos(i*(3.14152/180)));
+				float radiusY = (float)(centerY + lengthY*Math.sin(i*(3.14152/180)));
+	            gl.glVertex3f(radiusX, radiusY, 0.0f );
 	        }
 		}
 		
