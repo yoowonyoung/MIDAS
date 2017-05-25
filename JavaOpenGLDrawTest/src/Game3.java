@@ -121,12 +121,12 @@ public class Game3 extends JFrame implements GLEventListener, MouseListener , Ke
 						gl.glColor3f(datas[i].getColor()[0], datas[i].getColor()[1], datas[i].getColor()[2]);
 						gl.glVertex2f((datasX[0] - 300.0f)/300.0f,(300.0f - datasY[0])/300.0f);
 						gl.glVertex2f((datasX[1] - 300.0f)/300.0f,(300.0f - datasY[0])/300.0f);
-						gl.glVertex2f((datasX[1] - 300.0f)/300.0f,(300-.0f - datasY[1])/300.0f);
+						gl.glVertex2f((datasX[1] - 300.0f)/300.0f,(300.0f - datasY[1])/300.0f);
 						gl.glVertex2f((datasX[0] - 300.0f)/300.0f,(300.0f - datasY[1])/300.0f);
 					}else if(type.equalsIgnoreCase("T")) {
 						gl.glColor3f(datas[i].getColor()[0], datas[i].getColor()[1], datas[i].getColor()[2]);
 						gl.glVertex2f(((datasX[0] + datasX[1] - 600.0f)/2.0f)/300.0f,(300.0f - datasY[0])/300.0f);
-						gl.glVertex2f((datasX[1] - 300.0f)/300.0f,(300-.0f - datasY[1])/300.0f);
+						gl.glVertex2f((datasX[1] - 300.0f)/300.0f,(300.0f - datasY[1])/300.0f);
 						gl.glVertex2f((datasX[0] - 300.0f)/300.0f,(300.0f - datasY[1])/300.0f);
 					}else if(type.equalsIgnoreCase("C")) {
 						gl.glColor3f(datas[i].getColor()[0], datas[i].getColor()[1], datas[i].getColor()[2]);
