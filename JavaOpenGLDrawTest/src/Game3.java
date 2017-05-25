@@ -31,11 +31,12 @@ public class Game3 extends JFrame implements GLEventListener, MouseListener , Ke
 	private final int width = 600;
 	private final int height = 600;
 	private boolean flag = false;
+	private boolean firstClick = false;
 	private TextRenderer textRenderer;
 	private int textPosX;
 	private int textPosY;
 	private String mode = "Unclick";
-	private float topLeftX,bottomRightX;
+	private float topLeftX,bottomRightX;	
 	private float topLeftY,bottomRightY;
 	private float arr[][] = new float[1000][1000];
 	private int index = 0;
@@ -44,6 +45,7 @@ public class Game3 extends JFrame implements GLEventListener, MouseListener , Ke
 	
 	public Game3() {
 		super("OpenGL Test");
+		System.out.println("생성자");
 		GLProfile profile = GLProfile.get(GLProfile.GL2);
 		GLCapabilities capabilities = new GLCapabilities(profile);
 		textRenderer = new TextRenderer(new Font("SansSerif", Font.BOLD, 14));
@@ -86,36 +88,62 @@ public class Game3 extends JFrame implements GLEventListener, MouseListener , Ke
 		
 		glu.gluOrtho2D(0.0f, 0.0f, 600.0f, 600.0f);
 		//gl.glTranslatef(0f, 0f, -10.0f);
-		
+		int count = index+1;
 		gl.glColor3f(0f, 0f, 1f);
-		if(index != 0) {
-			for(int i = 0; i < index; i++) {
-				gl.glBegin(GL2.GL_POLYGON);
-				String type = datas[i].getPolygonType();
-				float datasX[] = datas[i].getPolygonDataX();
-				float datasY[] = datas[i].getPolygonDataY();
-				if(type.equalsIgnoreCase("R")) {
-					gl.glVertex2f((datasX[0] - 300.0f)/300.0f,(300.0f - datasY[0])/300.0f);
-					gl.glVertex2f((datasX[1] - 300.0f)/300.0f,(300.0f - datasY[0])/300.0f);
-					gl.glVertex2f((datasX[1] - 300.0f)/300.0f,(300-.0f - datasY[1])/300.0f);
-					gl.glVertex2f((datasX[0] - 300.0f)/300.0f,(300.0f - datasY[1])/300.0f);
-				}else if(type.equalsIgnoreCase("T")) {
-					gl.glVertex2f(((datasX[0] + datasX[1] - 600.0f)/2.0f)/300.0f,(300.0f - datasY[0])/300.0f);
-					gl.glVertex2f((datasX[1] - 300.0f)/300.0f,(300-.0f - datasY[1])/300.0f);
-					gl.glVertex2f((datasX[0] - 300.0f)/300.0f,(300.0f - datasY[1])/300.0f);
-				}else if(type.equalsIgnoreCase("C")) {
-					for(int j=0; j<360; ++j) {
-						float centerX = ((datasX[0] + datasX[1] - 600.0f)/2.0f)/300.0f;
-						float lengthX = ((datasX[1] - datasX[0]))/300.0f;
-						float centerY = ((600.0f- datasY[0] - datasY[1])/2.0f)/300.0f;
-						float lengthY = ( datasY[1] - datasY[0])/300.0f;
-						float radiusX = (float)(centerX + lengthX*Math.cos(j*(3.14152/180)));
-						float radiusY = (float)(centerY + lengthY*Math.sin(j*(3.14152/180)));
-			            gl.glVertex3f(radiusX, radiusY, 0.0f );
-			        }
-				}
-				gl.glEnd();
+		if(firstClick) {
+			for(int i = 0; i <= index; i++) {
+				//System.out.println(index);
+				if(datas[i] != null) {
+					String type = datas[i].getPolygonType();
+					float datasX[] = datas[i].getPolygonDataX();
+					float datasY[] = datas[i].getPolygonDataY();
+					if(datas[i].getSelectInfo()){
+						gl.glBegin(GL2.GL_LINE_LOOP);
+						gl.glVertex2f((datasX[0] - 300.0f)/300.0f - 0.05f, (300.0f - datasY[0])/300.0f + 0.05f);
+						gl.glVertex2f((datasX[0] - 300.0f)/300.0f - 0.06f, (300.0f - datasY[0])/300.0f + 0.06f);
+						gl.glEnd();
+						gl.glBegin(GL2.GL_LINE_LOOP);
+						gl.glVertex2f((datasX[1] - 300.0f)/300.0f + 0.05f, (300.0f - datasY[0])/300.0f + 0.05f);
+						gl.glVertex2f((datasX[1] - 300.0f)/300.0f + 0.06f, (300.0f - datasY[0])/300.0f + 0.06f);
+						gl.glEnd();
+						gl.glBegin(GL2.GL_LINE_LOOP);
+						gl.glVertex2f((datasX[0] - 300.0f)/300.0f - 0.05f, (300.0f - datasY[1])/300.0f - 0.05f);
+						gl.glVertex2f((datasX[0] - 300.0f)/300.0f - 0.06f, (300.0f - datasY[1])/300.0f - 0.06f);
+						gl.glEnd();
+						gl.glBegin(GL2.GL_LINE_LOOP);
+						gl.glVertex2f((datasX[1] - 300.0f)/300.0f + 0.05f, (300.0f - datasY[1])/300.0f - 0.05f);
+						gl.glVertex2f((datasX[1] - 300.0f)/300.0f + 0.06f, (300.0f - datasY[1])/300.0f - 0.06f);
+						gl.glEnd();
+					}
+					gl.glBegin(GL2.GL_POLYGON);
+					
+					if(type.equalsIgnoreCase("R")) {
+						gl.glColor3f(datas[i].getColor()[0], datas[i].getColor()[1], datas[i].getColor()[2]);
+						gl.glVertex2f((datasX[0] - 300.0f)/300.0f,(300.0f - datasY[0])/300.0f);
+						gl.glVertex2f((datasX[1] - 300.0f)/300.0f,(300.0f - datasY[0])/300.0f);
+						gl.glVertex2f((datasX[1] - 300.0f)/300.0f,(300-.0f - datasY[1])/300.0f);
+						gl.glVertex2f((datasX[0] - 300.0f)/300.0f,(300.0f - datasY[1])/300.0f);
+					}else if(type.equalsIgnoreCase("T")) {
+						gl.glColor3f(datas[i].getColor()[0], datas[i].getColor()[1], datas[i].getColor()[2]);
+						gl.glVertex2f(((datasX[0] + datasX[1] - 600.0f)/2.0f)/300.0f,(300.0f - datasY[0])/300.0f);
+						gl.glVertex2f((datasX[1] - 300.0f)/300.0f,(300-.0f - datasY[1])/300.0f);
+						gl.glVertex2f((datasX[0] - 300.0f)/300.0f,(300.0f - datasY[1])/300.0f);
+					}else if(type.equalsIgnoreCase("C")) {
+						gl.glColor3f(datas[i].getColor()[0], datas[i].getColor()[1], datas[i].getColor()[2]);
+						for(int j=0; j<360; ++j) {
+							float centerX = ((datasX[0] + datasX[1] - 600.0f)/2.0f)/300.0f;
+							float lengthX = ((datasX[1] - datasX[0]))/300.0f;
+							float centerY = ((600.0f- datasY[0] - datasY[1])/2.0f)/300.0f;
+							float lengthY = ( datasY[1] - datasY[0])/300.0f;
+							float radiusX = (float)(centerX + lengthX*Math.cos(j*(3.14152/180)));
+							float radiusY = (float)(centerY + lengthY*Math.sin(j*(3.14152/180)));
+				            gl.glVertex3f(radiusX, radiusY, 0.0f );
+				        }
+					}
+					gl.glEnd();
 
+				}
+				
 			}
 			/*
 			if(mode.equalsIgnoreCase("R")) {
@@ -175,6 +203,7 @@ public class Game3 extends JFrame implements GLEventListener, MouseListener , Ke
 
 	@Override
 	public void init(GLAutoDrawable arg0) {
+		System.out.println("init");
 		// TODO Auto-generated method stub
 		Rectangle2D bounds = textRenderer.getBounds("Mode: " + mode);
 		int textWidth = (int)bounds.getWidth();
@@ -216,9 +245,22 @@ public class Game3 extends JFrame implements GLEventListener, MouseListener , Ke
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("Click");
-		//topLeftX = e.getX();
-		//topLeftY = e.getY();
-		
+		float clickX = e.getX();
+		float clickY = e.getY();
+		for(int i = 0; i < index; i++) {
+			if(datas[i].getSelectInfo()){
+				datas[i].changeSelect();
+			}
+		}
+		for(int i = 0; i < index; i++) {
+			float rangeX[] = datas[i].getPolygonDataX();
+			float rangeY[] = datas[i].getPolygonDataY();
+			if(rangeX[0] < clickX && clickX < rangeX[1] && rangeY[0] < clickY && clickY < rangeY[1]) {
+				datas[i].changeSelect();
+			}
+		}
+		canvas.display();
+		/*
 		if(animator.isAnimating()) {
 			flag = true;
 			mode = "Click";
@@ -229,7 +271,7 @@ public class Game3 extends JFrame implements GLEventListener, MouseListener , Ke
 			mode = "Unclick";
 			flag = false;
 			animator.start();
-		}
+		}*/
 		
 	}
 
@@ -248,30 +290,71 @@ public class Game3 extends JFrame implements GLEventListener, MouseListener , Ke
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		topLeftX = e.getX();
-		topLeftY = e.getY();
-		datas[index] = new PolygonData();
-		datas[index].setLeftXY(topLeftX, topLeftY);
-		datas[index].setPolygonType(mode);
-		//System.out.println("old :" + topLeftX + " , " + topLeftY);
-		
-		canvas.display();
+		if(mode.equalsIgnoreCase("R") || mode.equalsIgnoreCase("C") || mode.equalsIgnoreCase("T")) {
+			topLeftX = e.getX();
+			topLeftY = e.getY();
+			datas[index] = new PolygonData();
+			datas[index].setLeftXY(topLeftX, topLeftY);
+			datas[index].setRightXY(topLeftX, topLeftY);
+			datas[index].setPolygonType(mode);
+			//System.out.println("old :" + topLeftX + " , " + topLeftY);
+			
+			canvas.display();
+
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		index++;
+		if(mode.equalsIgnoreCase("R") || mode.equalsIgnoreCase("C") || mode.equalsIgnoreCase("T")) {
+			datas[index].changeSelect();
+			if(mode.equalsIgnoreCase("R")) {
+				datas[index].changeColor(1.0f, 0.0f, 0.0f);
+			}else if(mode.equalsIgnoreCase("T")) {
+				datas[index].changeColor(0.0f, 1.0f, 0.0f);
+			}else if(mode.equalsIgnoreCase("C")) {
+				datas[index].changeColor(0.0f, 0.0f, 1.0f);
+			}
+			index++;
+			canvas.display();
+		}
+		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char ch = e.getKeyChar();
-		if(ch == '\032') {
-			index--;
+		boolean changeColor = false;
+		int changeIndex = 0;
+		for(int i = 0; i < index; i++) {
+			if(datas[i].getSelectInfo()) {
+				changeColor = true;
+				changeIndex = i;
+				break;
+			}
+		}
+		if(changeColor) {
+			if(ch == 'R') {
+				datas[changeIndex].changeColor(1.0f, 0.0f, 0.0f);
+			}else if(ch == 'G') {
+				datas[changeIndex].changeColor(0.0f, 1.0f, 0.0f);
+			}else if(ch == 'B') {
+				datas[changeIndex].changeColor(0.0f, 0.0f, 1.0f);
+			}
 		}else {
 			mode = ch + "";
+		}
+		if(ch == '\032') {
+			index--;
+		}else if(ch == 46 || ch == 8) {
+			for(int i = 0; i < index; i++) {
+				if(datas[i].getSelectInfo()) {
+					datas[i].clearData();
+					index--;
+				}
+			}
 		}
 		
 		canvas.display();
@@ -292,11 +375,27 @@ public class Game3 extends JFrame implements GLEventListener, MouseListener , Ke
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		bottomRightX = e.getX();
-		bottomRightY = e.getY();
-		datas[index].setRightXY(bottomRightX, bottomRightY);
-		//System.out.println(bottomRightX + " , " + bottomRightY);
-		canvas.display();
+		if(mode.equalsIgnoreCase("R") || mode.equalsIgnoreCase("C") || mode.equalsIgnoreCase("T")) {
+			bottomRightX = e.getX();
+			bottomRightY = e.getY();
+			boolean flagToConfigure = false;
+			if(!firstClick) {
+				firstClick = true;
+			}
+			for(int i = 0; i < index; i++) {
+				if(datas[i].getSelectInfo()) {
+					datas[i].setRightXY(bottomRightX, bottomRightY);
+					flagToConfigure = true;
+					break;
+				}
+			}
+			if(!flagToConfigure){
+				datas[index].setRightXY(bottomRightX, bottomRightY);
+			}
+			System.out.println("Dragged");
+			canvas.display();
+		}
+		
 	}
 
 	@Override
