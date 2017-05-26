@@ -13,7 +13,7 @@ public class GLDrawManager {
 	private GLAutoDrawable autoDrawable;
 	private int width = 600;
 	private int height = 600;
-	private float color[];
+	private PolygonData data;
 	
 	private GLDrawManager() {
 		glu = new GLU();
@@ -120,15 +120,17 @@ public class GLDrawManager {
 		
 		rquad -= 0.15f;
 	}
+
 	/**
-	 * 사각형을 그리는 메서ㅈ드
+	 * 사각형을 그리는 메서드
 	 * @param arg0 GLEventListener에서 사용하는 GLAutoDrawable 그대로
-	 * @param color 사각형의 색상을 결정하는 float 배열(R,G,B순서)
-	 * @param datasX 사각형의 X좌표 배열(좌 상단, 우 하단 순)
-	 * @param datasY 사각형의 Y좌표 배열(좌 상단, 우 하단 순)
+	 * @param data 사각형의 정보를 가진 Polygondata 객체
 	 */
-	public void drawRectangle(GLAutoDrawable arg0, float color[], float datasX[], float datasY[]) {
-		this.color = color;
+	public void drawRectangle(GLAutoDrawable arg0, PolygonData data) {
+		//this.color = color;
+		float datasX[] = data.getPolygonDataX();
+		float datasY[] = data.getPolygonDataY();
+		float color[] = data.getColor();
 		float tempX = width/2;
 		float tempY = height/2;
 		gl = arg0.getGL().getGL2();
@@ -148,12 +150,13 @@ public class GLDrawManager {
 	/**
 	 * 원을 그리는 메서드
 	 * @param arg0 GLEventListener에서 사용하는 GLAutoDrawable 그대로
-	 * @param color 원의 색상을 결정하는 float 배열(R,G,B) 순서
-	 * @param datasX 원에 외접하는 사각형의 X좌표 배열(좌 상단, 우 하단 순) 
-	 * @param datasY 원에 외접하는 사각형의 Y좌표 배열(좌 상단, 우 하단 순)
+	 * @param data 원의 정보를 가진 PolygonData 객체
 	 */
-	public void drawCircle(GLAutoDrawable arg0, float color[], float datasX[], float datasY[]) {
-		this.color = color;
+	public void drawCircle(GLAutoDrawable arg0, PolygonData data) {
+		//this.color = color;
+		float datasX[] = data.getPolygonDataX();
+		float datasY[] = data.getPolygonDataY();
+		float color[] = data.getColor();
 		float tempX = width/2;
 		float tempY = height/2;
 		gl = arg0.getGL().getGL2();
@@ -175,15 +178,43 @@ public class GLDrawManager {
         }
 		gl.glEnd();	
 	}
+	
+	/**
+	 * 선분을 그리는 메서드
+	 * @param arg0 GLEventListener에서 사용하는 GLAutoDrawable 그대로
+	 * @param data 선분의 정보를 가진 PolygonData 객체
+	 */
+	public void drawLine(GLAutoDrawable arg0, PolygonData data) {
+		//this.color = color;
+		float datasX[] = data.getPolygonDataX();
+		float datasY[] = data.getPolygonDataY();
+		float color[] = data.getColor();
+		float tempX = width/2;
+		float tempY = height/2;
+		gl = arg0.getGL().getGL2();
+		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
+		gl.glViewport(0, 0, width, height);
+		gl.glMatrixMode(GL2.GL_PROJECTION);
+		gl.glLoadIdentity();
+		glu.gluOrtho2D(0.0f, 0.0f, width, height);
+		gl.glColor3f(color[0], color[1], color[2]);
+		gl.glBegin(GL2.GL_LINE_LOOP);
+		gl.glVertex2f((datasX[0] - tempX)/tempX, (tempY - datasY[0])/tempY);
+		gl.glVertex2f((datasX[1] - tempX)/tempX, (tempY - datasY[1])/tempY);
+		gl.glEnd();
+		
+	}
+	
 	/**
 	 * 삼각형을 그리는 메서드
 	 * @param arg0 GLEventListener에서 사용하는 GLAutoDrawable 그대로
-	 * @param color 삼각형의 색상을 결정하는 float 배열(R,G,B) 순서
-	 * @param datasX 삼각형에 외접하는 사각형의 X좌표 배열(좌 상단, 우 하단 순) 
-	 * @param datasY 삼각형에 외접하는 사각형의 Y좌표 배열(좌 상단, 우 하단 순)
+	 * @param data 삼각형의 정보를 가진 PolygonData 객체
 	 */
-	public void drawTringle(GLAutoDrawable arg0, float color[], float datasX[], float datasY[]) {
-		this.color = color;
+	public void drawTringle(GLAutoDrawable arg0, PolygonData data) {
+		// TODO Auto-generated method stub
+		float datasX[] = data.getPolygonDataX();
+		float datasY[] = data.getPolygonDataY();
+		float color[] = data.getColor();
 		float tempX = width/2;
 		float tempY = height/2;
 		gl = arg0.getGL().getGL2();
@@ -199,5 +230,4 @@ public class GLDrawManager {
 		gl.glVertex2f((datasX[0] - tempX)/tempX,(tempY - datasY[1])/tempY);
 		gl.glEnd();
 	}
-	
 }

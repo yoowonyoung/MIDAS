@@ -17,7 +17,6 @@ import javax.swing.*;
 public class GLFrame extends JFrame implements GLEventListener, MouseListener, MouseMotionListener{
 	public static DisplayMode dm, dm_old;
 	private GLU glu = new GLU();
-	private float rquad = 0.0f;
 	private GL2 gl;
 	private FPSAnimator animator;
 	private static GLProfile profile = GLProfile.get(GLProfile.GL2);
@@ -30,6 +29,7 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 	private float datasX[] = new float[2];
 	private float datasY[] = new float[2];
 	private GLDrawManager manager;
+	private PolygonData data = new PolygonData();
 	
 	public GLFrame(int width, int height) {
 		super("OpenGL Test");
@@ -61,9 +61,11 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 		}*/
 		float color[] = {0.0f, 1.0f, 0.0f};
 		//manager.drawRotateCube(arg0,5.0f,1.0f,2.0f);
-		manager.drawTringle(arg0, color, datasX, datasY);
-		//manager.drawRectangle(arg0, color, datasX, datasY);
-		//manager.drawCircle(arg0, color, datasX, datasY);
+		data.changeColor(color);
+		//manager.drawTringle(arg0, data);
+		//manager.drawLine(arg0, data);
+		manager.drawRectangle(arg0, data);
+		//manager.drawCircle(arg0, data);
 	}
 
 	@Override
@@ -118,8 +120,8 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		datasX[0] = datasX[1] = e.getX();
-		datasY[0] = datasY[1] = e.getY();
+		data.setLeftXY(e.getX(), e.getY());
+		data.setRightXY(e.getX(), e.getY());
 		canvas.display();
 	}
 
@@ -132,8 +134,7 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		datasX[1] = e.getX();
-		datasY[1] = e.getY();
+		data.setRightXY(e.getX(), e.getY());
 		canvas.display();
 	}
 
