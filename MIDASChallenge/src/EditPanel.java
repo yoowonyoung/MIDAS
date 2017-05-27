@@ -63,6 +63,8 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 		Location location = classObj.getClassLocation();
 		classPanel.setSize(classObj.getWidth()*12, classObj.getHeight()*15 +2);
 		classPanel.setLocation(location.getStartX(), location.getStartY());
+		location.setEndX(location.getStartX() + classObj.getWidth()*12);
+		location.setEndY(location.getStartX() + classObj.getHeight()*15 + 2);
 		classPanel.setBackground(Color.white);
 		classPanel.setBorder(new LineBorder(Color.black));
 		add(classPanel);
