@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,6 +13,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 /**
  * 화면을 구성하게될 메인 프레임, 상단목록과 좌측 사이드바, 편집화면을 가지게됨
@@ -20,8 +24,14 @@ import javax.swing.JOptionPane;
 public class MainFrame extends JFrame{
 	private int width = 1280;
 	private int height = 1024;
+	private final JSplitPane splitPane;
+	private final JPanel sidebarPanel;
+	private final JPanel editPanel;
 	
 	public MainFrame() {
+		sidebarPanel = new JPanel();
+		editPanel = new JPanel();
+		splitPane = new JSplitPane();
 		initUI();
 	}
 	
@@ -29,8 +39,16 @@ public class MainFrame extends JFrame{
 	 * UI를 초기화 하는 메서드
 	 */
 	public void initUI() {
+		splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
+		splitPane.setDividerLocation(380);
+		splitPane.setLeftComponent(sidebarPanel);
+		sidebarPanel.setBackground(Color.WHITE);
+		splitPane.setRightComponent(editPanel);
+		splitPane.setEnabled(false);
 		setSize(width, height);
 		createMenuBar();
+		getContentPane().setLayout(new GridLayout());
+		getContentPane().add(splitPane);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    setResizable(false);
 		setVisible(true);
