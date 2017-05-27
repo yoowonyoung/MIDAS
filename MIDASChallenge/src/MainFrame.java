@@ -68,19 +68,19 @@ public class MainFrame extends JFrame {
 	public void createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu file = new JMenu("File");
-		ImageIcon fileIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\fileIcon.png");
+		ImageIcon fileIcon = new ImageIcon(getClass().getResource("fileIcon.png"));
 		file.setMnemonic(KeyEvent.VK_F);
 		file.setIcon(fileIcon);
 		JMenu undo = new JMenu("Undo");
-		ImageIcon undoIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\undoIcon.png");
+		ImageIcon undoIcon = new ImageIcon(getClass().getResource("undoIcon.png"));
 		undo.setMnemonic(KeyEvent.VK_U);
 		undo.setIcon(undoIcon);
 		JMenu redo = new JMenu("Redo");
-		ImageIcon redoIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\redoIcon.png");
+		ImageIcon redoIcon = new ImageIcon(getClass().getResource("redoIcon.png"));
 		redo.setMnemonic(KeyEvent.VK_R);
 		redo.setIcon(redoIcon);
 		JMenu erase = new JMenu("Erase");
-		ImageIcon eraseIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\eraseIcon.png");
+		ImageIcon eraseIcon = new ImageIcon(getClass().getResource("eraseIcon.png"));
 		erase.setMnemonic(KeyEvent.VK_E);
 		erase.setIcon(eraseIcon);
 		erase.addMouseListener(new MouseListener() {
