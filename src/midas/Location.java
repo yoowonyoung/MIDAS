@@ -1,4 +1,4 @@
-package midasClient;
+package midas;
 import java.io.Serializable;
 
 /**
@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  */
 public class Location implements Serializable {
-
+	private static final long serialVersionUID = 1L;
 	private int startX, startY, endX, endY;
 
 	public Location(int startX, int startY, int endX, int endY) {
@@ -71,6 +71,11 @@ public class Location implements Serializable {
 		result = prime * result + startX;
 		result = prime * result + startY;
 		return result;
+	}
+	
+	public boolean calculateUpDown(Location arrowStartLocation){
+		if(this.startY >= arrowStartLocation.endY) return true;
+		else return false;
 	}
 
 	@Override

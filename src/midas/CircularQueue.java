@@ -1,4 +1,4 @@
-package midasClient;
+package midas;
 public class CircularQueue {
     
     // 큐 배열은 front와 rear 그리고 maxSize를 가진다.

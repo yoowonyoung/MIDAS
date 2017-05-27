@@ -1,4 +1,4 @@
-package midasClient;
+package midas;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -9,6 +9,7 @@ import java.util.ArrayList;
  *
  */
 public class ClassObject implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String className;
 	private ArrayList<String> attributes;
 	private ArrayList<String> operations;
@@ -16,7 +17,7 @@ public class ClassObject implements Serializable{
 	private RelationshipArrow myRelationshipArrow;
 	private ClassObject myRelationClassObject;
 	private int width = 0, height = 0;
-
+	private String classType;
 	/**
 	 * 맨 처음 빈 클래스 생성시 이름과 Location class만 받아서 생성한다.
 	 * 
@@ -24,13 +25,18 @@ public class ClassObject implements Serializable{
 	 * @param classLocation
 	 */
 
+	public ClassObject() {
+		
+	}
+	
+	
 	public ClassObject(Location classLocation) {
 
-		this("Object", new ArrayList<String>(), new ArrayList<String>(), classLocation, null, null);
+		this("Object", new ArrayList<String>(), new ArrayList<String>(), classLocation, null, null, "Class");
 	}
 
-	public ClassObject(String className, Location classLocation) {
-		this(className, new ArrayList<String>(), new ArrayList<String>(), classLocation, null, null);
+	public ClassObject(String className, Location classLocation, String classType) {
+		this(className, new ArrayList<String>(), new ArrayList<String>(), classLocation, null, null, classType);
 		width = className.length();
 		attributes.add(" ");
 		operations.add(" ");
@@ -38,16 +44,25 @@ public class ClassObject implements Serializable{
 	}
 
 	public ClassObject(String className, ArrayList<String> attributes, ArrayList<String> operations,
-			Location classLocation, RelationshipArrow myRelationshipArrow, ClassObject myRelationClassObject) {
+			Location classLocation, RelationshipArrow myRelationshipArrow, ClassObject myRelationClassObject, String classType) {
 		setClassName(className);
 		setAttributes(attributes);
 		setOperations(operations);
 		setClassLocation(classLocation);
 		setMyRelationshipArrow(myRelationshipArrow);
 		setMyRelationClassObject(myRelationClassObject);
+		setClassType(classType);
 		calWidthAndHeight();
 	}
 	
+	private void setClassType(String classType) {
+		this.classType = classType;
+	}
+	
+	public String getClassType() {
+		return classType;
+	}
+
 	private void calWidthAndHeight() {
 		width = className.length();
 		if(attributes != null) {

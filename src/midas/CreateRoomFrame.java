@@ -1,4 +1,4 @@
-package midasClient;
+package midas;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -63,6 +63,13 @@ public class CreateRoomFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				SendRoomInfoToServer();
 				//클래스 다이어그램 제작 프로그램 실행
+				WaitRoomFrame.isWaitList = false;
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				new MainFrame();
 				dispose();
 				

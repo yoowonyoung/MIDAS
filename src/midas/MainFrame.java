@@ -1,4 +1,4 @@
-package midasClient;
+package midas;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.ImageIcon;
@@ -29,16 +30,15 @@ import javax.swing.JSplitPane;
 public class MainFrame extends JFrame {
 	private int width = 1280;
 	private int height = 1024;
-
+	private PanelInformation panelInformation;
 	private final JSplitPane splitPane;
 	private final SideBarPanel sidebarPanel;
-	private final TappedPane editPanel;
+	public final static TappedPane editPanel = new TappedPane();
 	public static String mode = "Class";
 	// xprivate final sideBarPenal sidePanel;
 
 	public MainFrame() {
 		sidebarPanel = new SideBarPanel();
-		editPanel = new TappedPane();
 		splitPane = new JSplitPane();
 		initUI();
 	}
@@ -62,6 +62,7 @@ public class MainFrame extends JFrame {
 		setResizable(false);
 		setVisible(true);
 		setTitle("MIDAS_UML");
+		
 	}
 
 	/**
@@ -131,6 +132,7 @@ public class MainFrame extends JFrame {
 				editPanel.addInfo(getInfo);// 추가된 다큐먼트 반영 및 탭 다시그리
 				sidebarPanel.refreshTree(getInfo);//트리 재구성 
 				MainFrame.this.repaint();
+				
 			}
 		});
 		JMenuItem openFile = new JMenuItem("Open File");
@@ -204,5 +206,8 @@ public class MainFrame extends JFrame {
 		menuBar.add(erase);
 		setJMenuBar(menuBar);
 	}
+	
+	
+	
 
 }

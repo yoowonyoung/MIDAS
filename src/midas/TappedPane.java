@@ -1,4 +1,6 @@
-package midasClient;
+package midas;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -29,6 +31,7 @@ public class TappedPane extends JTabbedPane {
 		EditPanel jp = new EditPanel(getInfo);
 		addTab(getInfo.getDocumentName(), jp);
 		setTabComponentAt(infos.size()-1, new CustomTab(this));
+		jp.StartThread();
 	}
 
 	public ArrayList<PanelInformation> getInfos() {
@@ -39,8 +42,14 @@ public class TappedPane extends JTabbedPane {
 		this.infos = infos;
 	}
 	
+	public int getNowSelectedIndex(){
+		return this.getSelectedIndex();
+	}
+	
 	public PanelInformation getNowSelectedInfo(){
 		System.out.println("in getNowSelected : " + infos.get(this.getSelectedIndex()).getDocumentName());
 		return infos.get(this.getSelectedIndex());
 	}
+	
+	
 }

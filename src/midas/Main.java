@@ -1,4 +1,4 @@
-package midasClient;
+package midas;
 
 public class Main {
 
