@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+
 /**
  * 클래스 다이어그램의 클래스 정보를 저장하는데 사용하는 클래스
+ * 
  * @author dnjsd
  *
  */
@@ -11,8 +13,22 @@ public class ClassObject {
 	private Location classLocation;
 	private RelationshipArrow myRelationshipArrow;
 	private ClassObject myRelationClassObject;
-	
-	
+
+	/**
+	 * 맨 처음 빈 클래스 생성시 이름과 Location class만 받아서 생성한다.
+	 * 
+	 * @param className
+	 * @param classLocation
+	 */
+
+	public ClassObject(Location classLocation) {
+
+		this("Object", new ArrayList<String>(), new ArrayList<String>(), classLocation, null, null);
+	}
+
+	public ClassObject(String className, Location classLocation) {
+		this(className, new ArrayList<String>(), new ArrayList<String>(), classLocation, null, null);
+	}
 
 	public ClassObject(String className, ArrayList<String> arrtibutes, ArrayList<String> operations,
 			Location classLocation, RelationshipArrow myRelationshipArrow, ClassObject myRelationClassObject) {
@@ -23,55 +39,61 @@ public class ClassObject {
 		setMyRelationshipArrow(myRelationshipArrow);
 		setMyRelationClassObject(myRelationClassObject);
 	}
-	
+
 	public String getClassName() {
 		return className;
 	}
+
 	public void setClassName(String className) {
 		this.className = className;
 	}
+
 	public ArrayList<String> getArrtibutes() {
 		return arrtibutes;
 	}
+
 	public void setArrtibutes(ArrayList<String> arrtibutes) {
 		this.arrtibutes = arrtibutes;
 	}
+
 	public ArrayList<String> getOperations() {
 		return operations;
 	}
+
 	public void setOperations(ArrayList<String> operations) {
 		this.operations = operations;
 	}
-	
+
 	public RelationshipArrow getMyRelationshipArrow() {
 		return myRelationshipArrow;
 	}
-	
+
 	public void setMyRelationshipArrow(RelationshipArrow myRelationshipArrow) {
 		this.myRelationshipArrow = myRelationshipArrow;
 	}
-	
+
 	public ClassObject getMyRelationClassObject() {
 		return myRelationClassObject;
 	}
-	
+
 	public void setMyRelationClassObject(ClassObject myRelationClassObject) {
 		this.myRelationClassObject = myRelationClassObject;
 	}
-	
+
 	public Location getClassLocation() {
 		return classLocation;
 	}
-	
+
 	public void setClassLocation(Location classLocation) {
 		this.classLocation = classLocation;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "ClassObject [className=" + className + ", classLocation=" + classLocation + ", myRelationshipArrow="
 				+ myRelationshipArrow + ", myRelationClassObject=" + myRelationClassObject + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,6 +104,7 @@ public class ClassObject {
 		result = prime * result + ((myRelationshipArrow == null) ? 0 : myRelationshipArrow.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -113,6 +136,5 @@ public class ClassObject {
 			return false;
 		return true;
 	}
-	
 
 }

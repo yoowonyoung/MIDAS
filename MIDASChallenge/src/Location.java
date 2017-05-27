@@ -1,13 +1,11 @@
 /**
  * 
- * @author wonjerry
- * 클래스 또는 화살표의 위치정보 및 좌표연산 관련 클래스 
+ * @author wonjerry 클래스 또는 화살표의 위치정보 및 좌표연산 관련 클래스 좌표 연산 관련 메소드가 추가 될 수 있다.
  *
  */
 public class Location {
-	private int startX,startY,endX,endY;
-	
-	
+
+	private int startX, startY, endX, endY;
 
 	public Location(int startX, int startY, int endX, int endY) {
 		setStartX(startX);
@@ -47,7 +45,7 @@ public class Location {
 	public void setEndY(int endY) {
 		this.endY = endY;
 	}
-	
+
 	// TODO can insert another calculate method
 
 	@Override
@@ -85,6 +83,5 @@ public class Location {
 	public String toString() {
 		return "Location [startX=" + startX + ", startY=" + startY + ", endX=" + endX + ", endY=" + endY + "]";
 	}
-	
-	
+
 }

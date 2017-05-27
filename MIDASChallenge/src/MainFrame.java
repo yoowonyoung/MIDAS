@@ -18,24 +18,26 @@ import javax.swing.JSplitPane;
 
 /**
  * 화면을 구성하게될 메인 프레임, 상단목록과 좌측 사이드바, 편집화면을 가지게됨
+ * 
  * @author dnjsd
  *
  */
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame {
 	private int width = 1280;
 	private int height = 1024;
+
 	private final JSplitPane splitPane;
-	private final JPanel sidebarPanel;
-	private final EditPanel editPanel;
-	public static String drawMode = "Class";
+	private final SideBarPanel sidebarPanel;
+	private final TappedPane editPanel;
+	//xprivate final sideBarPenal sidePanel;
 	
 	public MainFrame() {
-		sidebarPanel = new EditPanel();
-		editPanel = new EditPanel();
+		sidebarPanel = new SideBarPanel();
+		editPanel = new TappedPane();
 		splitPane = new JSplitPane();
 		initUI();
 	}
-	
+
 	/**
 	 * UI를 초기화 하는 메서드
 	 */
@@ -48,21 +50,22 @@ public class MainFrame extends JFrame{
 		splitPane.setEnabled(false);
 		setSize(width, height);
 		createMenuBar();
+		
 		getContentPane().setLayout(new GridLayout());
 		getContentPane().add(splitPane);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    setResizable(false);
+		setResizable(false);
 		setVisible(true);
-	    setTitle("MIDAS_UML");
+		setTitle("MIDAS_UML");
 	}
-	
+
 	/**
 	 * 메뉴바를 만드는 메서드
 	 */
 	public void createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu file = new JMenu("File");
-		ImageIcon fileIcon = new ImageIcon(System.getProperty("user.dir")+"\\images\\fileIcon.png");
+		ImageIcon fileIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\fileIcon.png");
 		file.setMnemonic(KeyEvent.VK_F);
 		file.setIcon(fileIcon);
 		JMenu undo = new JMenu("Undo");
@@ -135,5 +138,5 @@ public class MainFrame extends JFrame{
 		menuBar.add(redo);
 		setJMenuBar(menuBar);
 	}
-	
+
 }
