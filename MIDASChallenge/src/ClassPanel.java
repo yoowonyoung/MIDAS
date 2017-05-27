@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -40,9 +41,29 @@ public class ClassPanel extends JPanel implements MouseListener{
 	}
 	
 	public void initUI() {
+		int hieddenSpace = 0;
+		if(classObjData.getClassType().equals("Interface")) {
+			JTextField hiddenTitle = new JTextField("<<interface>>");
+			hiddenTitle.setLocation(0, 0);
+			hiddenTitle.setFont(new Font("돋움", Font.PLAIN, 15));
+			hieddenSpace += 15;
+			hiddenTitle.setSize(classObjData.getWidth()*12, 15);
+			hiddenTitle.setBackground(Color.WHITE);
+			hiddenTitle.setBorder(new LineBorder(Color.black));
+			add(hiddenTitle);
+		}else if(classObjData.getClassType().equals("Abstract")) {
+			JTextField hiddenTitle = new JTextField("<<Abstract>>");
+			hiddenTitle.setLocation(0, 0);
+			hiddenTitle.setFont(new Font("돋움", Font.PLAIN, 15));
+			hieddenSpace += 15;
+			hiddenTitle.setSize(classObjData.getWidth()*12, 15);
+			hiddenTitle.setBackground(Color.WHITE);
+			hiddenTitle.setBorder(new LineBorder(Color.black));
+			add(hiddenTitle);
+		}
 		className = new JTextField(classObjData.getClassName());
 		location = classObjData.getClassLocation();
-		className.setLocation(0, 0);
+		className.setLocation(0, hieddenSpace);
 		className.setFont(new Font("돋움", Font.PLAIN, 15));
 		className.setSize(classObjData.getWidth()*12, 15);
 		className.setBackground(Color.WHITE);
@@ -57,23 +78,12 @@ public class ClassPanel extends JPanel implements MouseListener{
 			}
 		});
 		className.addMouseListener(this);
-		/*
-		className.addActionListener(new ActionListener() {	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				classObjData.setClassName(className.getText());
-			}
-		});*/
-		//JTextArea attributes = new JTextArea(classObj.get);
 		add(className);
-		//String[] attr = new String[]{"attributes"};
 		attributes = new JTable(convertData(classObjData.getAttributes()),new Object[]{"Attributes"});
-		//attributes = new JTable(classObj.getAttributes().toArray());
 		attributes.setFont(new Font("돋움", Font.PLAIN, 15));
 		attributes.setTableHeader(null);
 		attributes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		attributes.setLocation(0, 15);
+		attributes.setLocation(0, hieddenSpace+15);
 		attributes.getColumnModel().getColumn(0).setWidth(classObjData.getWidth()*15);
 		attributes.setSize(classObjData.getWidth()*12, classObjData.getAttributes().size()*15);
 		attributes.setBackground(Color.WHITE);
@@ -93,15 +103,24 @@ public class ClassPanel extends JPanel implements MouseListener{
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					int row = attributes.getSelectedRow();
 					int column = attributes.getSelectedColumn();
-					ArrayList<String> beforeData = classObjData.getAttributes();
-					beforeData.set(row, (String) attributes.getValueAt(row, column));
-					classObjData.setAttributes(beforeData);
-					validate();
-					repaint();
+					String inputData = (String) attributes.getValueAt(row, column);
+					if(TypeChecker.arrtibuteTypeCheck(inputData)) {
+						ArrayList<String> beforeData = classObjData.getAttributes();
+						beforeData.set(row, inputData);
+						classObjData.setAttributes(beforeData);
+						validate();
+						repaint();
+					}else {
+						JOptionPane.showMessageDialog(null,
+								TypeChecker.getErrorCode(),
+							    "Warnning",
+							    JOptionPane.WARNING_MESSAGE);
+					}
 				}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 					ArrayList<String> beforeData = classObjData.getAttributes();
 					beforeData.add("new attr"+ (beforeData.size()+1));
 					classObjData.setAttributes(beforeData);
+					
 					validate();
 					repaint();
 					BelongToEditPanel.changeClassInfo(classObjData, index);
@@ -115,7 +134,7 @@ public class ClassPanel extends JPanel implements MouseListener{
 		operations.setTableHeader(null);
 		operations.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		operations.getColumnModel().getColumn(0).setWidth(classObjData.getWidth()*15);
-		operations.setLocation(0, classObjData.getAttributes().size()*15 + 15);
+		operations.setLocation(0, hieddenSpace+classObjData.getAttributes().size()*15 + 15);
 		operations.setSize(classObjData.getWidth()*12, classObjData.getHeight()*15);
 		operations.setBackground(Color.WHITE);
 		operations.setBorder(new LineBorder(Color.black));
@@ -134,11 +153,20 @@ public class ClassPanel extends JPanel implements MouseListener{
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					int row = operations.getSelectedRow();
 					int column = operations.getSelectedColumn();
-					ArrayList<String> beforeData = classObjData.getOperations();
-					beforeData.set(row, (String) operations.getValueAt(row, column));
-					classObjData.setOperations(beforeData);
-					validate();
-					repaint();
+					String inputData =  (String) operations.getValueAt(row, column);
+					if(TypeChecker.operationTypeCheck(inputData)){
+						ArrayList<String> beforeData = classObjData.getOperations();
+						beforeData.set(row, (String) operations.getValueAt(row, column));
+						classObjData.setOperations(beforeData);
+						validate();
+						repaint();
+					}else {
+						JOptionPane.showMessageDialog(null,
+								TypeChecker.getErrorCode(),
+							    "Warnning",
+							    JOptionPane.WARNING_MESSAGE);
+					}
+					
 				}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 					ArrayList<String> beforeData = classObjData.getOperations();
 					beforeData.add("new op"+ (beforeData.size()+1));
@@ -153,6 +181,11 @@ public class ClassPanel extends JPanel implements MouseListener{
 		add(operations);
 	}
 	
+	/**
+	 * Attribute와 Operation을 그리는 JTable을 위해 데이터를 변환하는 메서드 
+	 * @param data
+	 * @return
+	 */
 	private Object[][] convertData(ArrayList<String> data) {
 		Object[][] returnVal = new Object[data.size()][1];
 		for(int i = 0; i < data.size(); i++) {
@@ -160,6 +193,7 @@ public class ClassPanel extends JPanel implements MouseListener{
 		}
 		return returnVal;
 	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -183,6 +217,7 @@ public class ClassPanel extends JPanel implements MouseListener{
 		// TODO Auto-generated method stub
 		if(MainFrame.mode.equals("Erase")) {
 			BelongToEditPanel.deleteClassInfo(index);
+			MainFrame.mode = "Normal";
 		}
 	}
 
