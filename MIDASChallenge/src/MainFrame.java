@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -97,6 +99,7 @@ public class MainFrame extends JFrame {
 				int returnVal = chooser.showOpenDialog(MainFrame.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 			        File file = chooser.getSelectedFile();
+			        
 			    }
 			}
 		});
@@ -126,6 +129,10 @@ public class MainFrame extends JFrame {
 				int returnVal = chooser.showSaveDialog(MainFrame.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 			        File file = chooser.getSelectedFile();
+			        //FileOutputStream fos = new FileOutputStream(chooser.getSelectedFile().toString()+chooser.getFileFilter().getDescription() );
+					//ObjectOutputStream oos = new ObjectOutputStream(fos);
+					//oos.writeObject(project);
+					//oos.close();
 			    }
 			}
 		});
