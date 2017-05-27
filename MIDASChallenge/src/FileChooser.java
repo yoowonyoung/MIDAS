@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -7,6 +8,7 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FileChooser{
@@ -16,7 +18,24 @@ public class FileChooser{
     private JFrame frm;
 	public FileChooser(JFrame frame)//flag 0이면 오픈 1이면 저장
 	{
-		fileChooser.setFileFilter(new FileNameExtensionFilter(".dat", ".dat"));	
+		fileChooser.addChoosableFileFilter(new FileFilter() {
+			
+			@Override
+			public String getDescription() {
+				// TODO Auto-generated method stub
+				return "*.dat file";
+			}
+			
+			@Override
+			public boolean accept(File file) {
+				// TODO Auto-generated method stub
+				if(file.isDirectory()) {
+					return true;
+				}else {
+					return file.getName().endsWith(".dat");
+				}
+			}
+		});
 		this.frm = frm;
     }
 	
