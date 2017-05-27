@@ -137,7 +137,7 @@ public class SideBarPanel extends javax.swing.JPanel {
 		drawArrowPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
 		// addDependencyArrowBtn.setText("addDependencyArrowBtn");
-		ImageIcon dependencyArrowIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\dependencyarrow.png");
+		ImageIcon dependencyArrowIcon = new ImageIcon(getClass().getResource("dependencyarrow.png"));
 		addDependencyArrowBtn.setIcon(dependencyArrowIcon);
 		addDependencyArrowBtn.addActionListener(new ActionListener() {
 
@@ -160,7 +160,7 @@ public class SideBarPanel extends javax.swing.JPanel {
 		});
 
 		// addExtendsArrowBtn.setText("addExtendsArrowBtn");
-		ImageIcon extendsArrowIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\extendsarrow.png");
+		ImageIcon extendsArrowIcon = new ImageIcon(getClass().getResource("extendsarrow.png"));
 		addExtendsArrowBtn.setIcon(extendsArrowIcon);
 
 		addExtendsArrowBtn.addActionListener(new ActionListener() {
