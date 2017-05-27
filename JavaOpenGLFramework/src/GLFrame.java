@@ -32,6 +32,9 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 	private float datasY[] = new float[2];
 	private GLDrawManager manager;
 	private PolygonData data = new PolygonData();
+	private PolygonData datas[] = new PolygonData[100];
+	private int index = 0;
+	private boolean firstClick = false;
 	
 	public GLFrame(int width, int height) {
 		super("OpenGL Test");
@@ -66,7 +69,14 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 		data.changeColor(color);
 		//manager.drawTringle(arg0, data);
 		//manager.drawLine(arg0, data);
-		manager.drawRectangle(arg0, data);
+		if(firstClick) {
+			for(int i = 0; i<= index; i++) {
+				if(datas[i] != null) {
+					manager.drawRectangle(arg0, datas[i]);
+				}
+			}
+		}
+		//manager.drawRectangle(arg0, data);
 		
 		//manager.drawCircle(arg0, data);
 		//manager.drawPolygon(arg0, data);
@@ -116,6 +126,13 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+		datas[index] = new PolygonData();
+		datas[index].markInpputed();
+		datas[index].addLocatinXY(e.getX(), e.getY());
+		datas[index].addLocatinXY(e.getX(), e.getY());
+		canvas.display();
+		/*
 		data.markInpputed();
 		if(drawMode) {
 			
@@ -123,18 +140,23 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 		data.addLocatinXY(e.getX(), e.getY());
 		data.addLocatinXY(e.getX(), e.getY());
 		canvas.display();
+		*/
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		index++;
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		if(!firstClick) {
+			firstClick = true;
+		}
 		// TODO Auto-generated method stub
-		data.changeLastLocationXY(e.getX(), e.getY());
+		datas[index].changeLastLocationXY(e.getX(), e.getY());
+		//data.changeLastLocationXY(e.getX(), e.getY());
 		canvas.display();
 	}
 
