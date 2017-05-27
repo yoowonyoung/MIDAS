@@ -127,25 +127,30 @@ public class GLDrawManager {
 	 * @param data 사각형의 정보를 가진 Polygondata 객체
 	 */
 	public void drawRectangle(GLAutoDrawable arg0, PolygonData data) {
-		//this.color = color;
-		float datasX[] = data.getPolygonDataX();
-		float datasY[] = data.getPolygonDataY();
-		float color[] = data.getColor();
-		float tempX = width/2;
-		float tempY = height/2;
-		gl = arg0.getGL().getGL2();
-		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
-		gl.glViewport(0, 0, width, height);
-		gl.glMatrixMode(GL2.GL_PROJECTION);
-		gl.glLoadIdentity();
-		glu.gluOrtho2D(0.0f, 0.0f, width, height);
-		gl.glColor3f(color[0], color[1], color[2]);
-		gl.glBegin(GL2.GL_POLYGON);
-		gl.glVertex2f((datasX[0] - tempX)/tempX,(tempY - datasY[0])/tempY);
-		gl.glVertex2f((datasX[1] - tempX)/tempX,(tempY - datasY[0])/tempY);
-		gl.glVertex2f((datasX[1] - tempX)/tempX,(tempY - datasY[1])/tempY);
-		gl.glVertex2f((datasX[0] - tempX)/tempX,(tempY - datasY[1])/tempY);
-		gl.glEnd();
+		if(data.getInpputedData()) {
+			this.drawPoint(arg0, data);
+			
+			Float datasX[] = data.getPolygonDataX();
+			Float datasY[] = data.getPolygonDataY();
+			float color[] = data.getColor();
+			float tempX = width/2;
+			float tempY = height/2;
+			gl = arg0.getGL().getGL2();
+			gl.glColor3f(color[0], color[1], color[2]);
+			gl.glBegin(GL2.GL_POLYGON);
+			gl.glVertex2f((datasX[datasX.length-2] - tempX)/tempX,(tempY - datasY[datasY.length -2])/tempY);
+			gl.glVertex2f((datasX[datasX.length-1] - tempX)/tempX,(tempY - datasY[datasY.length -2])/tempY);
+			gl.glVertex2f((datasX[datasX.length-1] - tempX)/tempX,(tempY - datasY[datasY.length -1])/tempY);
+			gl.glVertex2f((datasX[datasX.length-2] - tempX)/tempX,(tempY - datasY[datasY.length -1])/tempY);
+			/*
+			gl.glVertex2f((datasX[0] - tempX)/tempX,(tempY - datasY[0])/tempY);
+			gl.glVertex2f((datasX[1] - tempX)/tempX,(tempY - datasY[0])/tempY);
+			gl.glVertex2f((datasX[1] - tempX)/tempX,(tempY - datasY[1])/tempY);
+			gl.glVertex2f((datasX[0] - tempX)/tempX,(tempY - datasY[1])/tempY);
+			*/
+			gl.glEnd();
+			gl.glFlush();
+		}
 	}
 	/**
 	 * 원을 그리는 메서드
@@ -153,30 +158,27 @@ public class GLDrawManager {
 	 * @param data 원의 정보를 가진 PolygonData 객체
 	 */
 	public void drawCircle(GLAutoDrawable arg0, PolygonData data) {
-		//this.color = color;
-		float datasX[] = data.getPolygonDataX();
-		float datasY[] = data.getPolygonDataY();
-		float color[] = data.getColor();
-		float tempX = width/2;
-		float tempY = height/2;
-		gl = arg0.getGL().getGL2();
-		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
-		gl.glViewport(0, 0, width, height);
-		gl.glMatrixMode(GL2.GL_PROJECTION);
-		gl.glLoadIdentity();
-		glu.gluOrtho2D(0.0f, 0.0f, width, height);
-		gl.glColor3f(color[0], color[1], color[2]);
-		gl.glBegin(GL2.GL_POLYGON);
-		for(int j=0; j<360; ++j) {
-			float centerX = ((datasX[0] + datasX[1] - width)/2.0f)/tempX;
-			float lengthX = ((datasX[1] - datasX[0]))/tempX;
-			float centerY = ((height- datasY[0] - datasY[1])/2.0f)/tempY;
-			float lengthY = ( datasY[1] - datasY[0])/tempY;
-			float radiusX = (float)(centerX + lengthX*Math.cos(j*(3.14152/180)));
-			float radiusY = (float)(centerY + lengthY*Math.sin(j*(3.14152/180)));
-            gl.glVertex3f(radiusX, radiusY, 0.0f );
-        }
-		gl.glEnd();	
+		if(data.getInpputedData()) {
+			this.drawPoint(arg0, data);
+			Float datasX[] = data.getPolygonDataX();
+			Float datasY[] = data.getPolygonDataY();
+			float color[] = data.getColor();
+			float tempX = width/2;
+			float tempY = height/2;
+			gl = arg0.getGL().getGL2();
+			gl.glColor3f(color[0], color[1], color[2]);
+			gl.glBegin(GL2.GL_POLYGON);
+			for(int j=0; j<360; ++j) {
+				float centerX = ((datasX[datasX.length -2] + datasX[datasX.length -1] - width)/2.0f)/tempX;
+				float lengthX = ((datasX[datasX.length -1] - datasX[datasX.length -2]))/tempX;
+				float centerY = ((height- datasY[datasY.length -2] - datasY[datasY.length-1])/2.0f)/tempY;
+				float lengthY = ( datasY[datasY.length -1] - datasY[datasY.length-2])/tempY;
+				float radiusX = (float)(centerX + lengthX*Math.cos(j*(3.14152/180)));
+				float radiusY = (float)(centerY + lengthY*Math.sin(j*(3.14152/180)));
+	            gl.glVertex3f(radiusX, radiusY, 0.0f );
+	        }
+			gl.glEnd();
+		}		
 	}
 	
 	/**
@@ -185,23 +187,20 @@ public class GLDrawManager {
 	 * @param data 선분의 정보를 가진 PolygonData 객체
 	 */
 	public void drawLine(GLAutoDrawable arg0, PolygonData data) {
-		//this.color = color;
-		float datasX[] = data.getPolygonDataX();
-		float datasY[] = data.getPolygonDataY();
-		float color[] = data.getColor();
-		float tempX = width/2;
-		float tempY = height/2;
-		gl = arg0.getGL().getGL2();
-		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
-		gl.glViewport(0, 0, width, height);
-		gl.glMatrixMode(GL2.GL_PROJECTION);
-		gl.glLoadIdentity();
-		glu.gluOrtho2D(0.0f, 0.0f, width, height);
-		gl.glColor3f(color[0], color[1], color[2]);
-		gl.glBegin(GL2.GL_LINE_LOOP);
-		gl.glVertex2f((datasX[0] - tempX)/tempX, (tempY - datasY[0])/tempY);
-		gl.glVertex2f((datasX[1] - tempX)/tempX, (tempY - datasY[1])/tempY);
-		gl.glEnd();
+		if(data.getInpputedData()) {
+			this.drawPoint(arg0, data);
+			Float datasX[] = data.getPolygonDataX();
+			Float datasY[] = data.getPolygonDataY();
+			float color[] = data.getColor();
+			float tempX = width/2;
+			float tempY = height/2;
+			gl = arg0.getGL().getGL2();
+			gl.glColor3f(color[0], color[1], color[2]);
+			gl.glBegin(GL2.GL_LINE_LOOP);
+			gl.glVertex2f((datasX[datasX.length-2] - tempX)/tempX, (tempY - datasY[datasY.length-2])/tempY);
+			gl.glVertex2f((datasX[datasX.length-1] - tempX)/tempX, (tempY - datasY[datasY.length-1])/tempY);
+			gl.glEnd();
+		}
 		
 	}
 	
@@ -211,23 +210,72 @@ public class GLDrawManager {
 	 * @param data 삼각형의 정보를 가진 PolygonData 객체
 	 */
 	public void drawTringle(GLAutoDrawable arg0, PolygonData data) {
-		// TODO Auto-generated method stub
-		float datasX[] = data.getPolygonDataX();
-		float datasY[] = data.getPolygonDataY();
-		float color[] = data.getColor();
-		float tempX = width/2;
-		float tempY = height/2;
-		gl = arg0.getGL().getGL2();
-		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
-		gl.glViewport(0, 0, width, height);
-		gl.glMatrixMode(GL2.GL_PROJECTION);
-		gl.glLoadIdentity();
-		glu.gluOrtho2D(0.0f, 0.0f, width, height);
-		gl.glColor3f(color[0], color[1], color[2]);
-		gl.glBegin(GL2.GL_POLYGON);
-		gl.glVertex2f(((datasX[0] + datasX[1] - width)/2.0f)/tempX,(tempY - datasY[0])/tempY);
-		gl.glVertex2f((datasX[1] - tempX)/tempX,(tempY - datasY[1])/tempY);
-		gl.glVertex2f((datasX[0] - tempX)/tempX,(tempY - datasY[1])/tempY);
-		gl.glEnd();
+		if(data.getInpputedData()) {
+			this.drawPoint(arg0, data);
+			Float datasX[] = data.getPolygonDataX();
+			Float datasY[] = data.getPolygonDataY();
+			float color[] = data.getColor();
+			float tempX = width/2;
+			float tempY = height/2;
+			gl = arg0.getGL().getGL2();
+			gl.glColor3f(color[0], color[1], color[2]);
+			gl.glBegin(GL2.GL_POLYGON);
+			gl.glVertex2f(((datasX[datasX.length-2] + datasX[datasX.length-1] - width)/2.0f)/tempX,(tempY - datasY[datasY.length-2])/tempY);
+			gl.glVertex2f((datasX[datasX.length-1] - tempX)/tempX,(tempY - datasY[datasY.length-1])/tempY);
+			gl.glVertex2f((datasX[datasX.length-2] - tempX)/tempX,(tempY - datasY[datasY.length-1])/tempY);
+			gl.glEnd();
+		}
+		
+	}
+	/**
+	 * 다각형을 그리는 메서드
+	 * @param arg0 GLEventListener에서 사용하는 GLAutoDrawable 그대로
+	 * @param data 다각형의 정보를 가진 PolygonData 객체
+	 */
+	public void drawPolygon(GLAutoDrawable arg0, PolygonData data) {
+		if(data.getInpputedData()) {
+			this.drawPoint(arg0, data);
+			Float datasX[] = data.getPolygonDataX();
+			Float datasY[] = data.getPolygonDataY();
+			float color[] = data.getColor();
+			float tempX = width/2;
+			float tempY = height/2;
+			gl = arg0.getGL().getGL2();
+			gl.glColor3f(color[0], color[1], color[2]);
+			gl.glBegin(GL2.GL_POLYGON);
+			for(int i = 0; i < datasX.length; i++ ){
+				gl.glVertex2f((datasX[i] - tempX)/tempX, (tempY - datasY[i])/tempY);
+			}
+			gl.glEnd();
+		}
+	}
+	/**
+	 * 도형을 그릴때 각 모서리의 점을 찍는 메서드
+	 * @param arg0 GLEventListener에서 사용하는 GLAutoDrawable 그대로
+	 * @param data 다각형의 정보를 가진 PolygonData 객체
+	 */
+	private void drawPoint(GLAutoDrawable arg0, PolygonData data ) {
+		if(data.getInpputedData()) {
+			Float datasX[] = data.getPolygonDataX();
+			Float datasY[] = data.getPolygonDataY();
+			float color[] = data.getColor();
+			float tempX = width/2;
+			float tempY = height/2;
+			gl = arg0.getGL().getGL2();
+			gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
+			gl.glViewport(0, 0, width, height);
+			gl.glMatrixMode(GL2.GL_PROJECTION);
+			gl.glLoadIdentity();
+			glu.gluOrtho2D(0.0f, 0.0f, width, height);
+			gl.glColor3f(color[0], color[1], color[1]);
+			gl.glPointSize(10.0f);
+			gl.glBegin(GL2.GL_POINTS);
+			gl.glVertex2f((datasX[datasX.length - 2] - tempX)/tempX - 0.05f, (tempY - datasY[datasY.length - 2])/tempY + 0.05f);
+			gl.glVertex2f((datasX[datasX.length - 1] - tempX)/tempX + 0.05f, (tempY - datasY[datasY.length - 2])/tempY + 0.05f);
+			gl.glVertex2f((datasX[datasX.length - 2] - tempX)/tempX - 0.05f, (tempY - datasY[datasY.length - 1])/tempY - 0.05f);
+			gl.glVertex2f((datasX[datasX.length - 1] - tempX)/tempX + 0.05f, (tempY - datasY[datasY.length - 1])/tempY - 0.05f);
+			gl.glEnd();
+			gl.glFlush();
+		}
 	}
 }

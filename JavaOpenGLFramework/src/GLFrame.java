@@ -4,6 +4,8 @@ import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.FPSAnimator;
 
 import java.awt.DisplayMode;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -14,7 +16,7 @@ import javax.swing.*;
  * @author wonyoung
  *
  */
-public class GLFrame extends JFrame implements GLEventListener, MouseListener, MouseMotionListener{
+public class GLFrame extends JFrame implements GLEventListener, MouseListener, MouseMotionListener, KeyListener{
 	public static DisplayMode dm, dm_old;
 	private GLU glu = new GLU();
 	private GL2 gl;
@@ -25,7 +27,7 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 	private static final long serialVersionUID = 1L;
 	private int width = 800;
 	private int height = 600;
-	private boolean flag = false;
+	private boolean drawMode = false;
 	private float datasX[] = new float[2];
 	private float datasY[] = new float[2];
 	private GLDrawManager manager;
@@ -65,7 +67,9 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 		//manager.drawTringle(arg0, data);
 		//manager.drawLine(arg0, data);
 		manager.drawRectangle(arg0, data);
+		
 		//manager.drawCircle(arg0, data);
+		//manager.drawPolygon(arg0, data);
 	}
 
 	@Override
@@ -94,15 +98,7 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(animator.isAnimating()) {
-			flag = true;
-			canvas.display();
-			canvas.requestFocusInWindow();
-			animator.stop();
-		}else {
-			flag = false;
-			animator.start();
-		}
+		
 	}
 
 	@Override
@@ -120,8 +116,12 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		data.setLeftXY(e.getX(), e.getY());
-		data.setRightXY(e.getX(), e.getY());
+		data.markInpputed();
+		if(drawMode) {
+			
+		}
+		data.addLocatinXY(e.getX(), e.getY());
+		data.addLocatinXY(e.getX(), e.getY());
 		canvas.display();
 	}
 
@@ -134,12 +134,36 @@ public class GLFrame extends JFrame implements GLEventListener, MouseListener, M
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		data.setRightXY(e.getX(), e.getY());
+		data.changeLastLocationXY(e.getX(), e.getY());
 		canvas.display();
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		if(arg0.getKeyChar() == 'm') {
+			if(drawMode) {
+				drawMode = false;
+			}else {
+				drawMode = true;
+			}
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}

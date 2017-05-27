@@ -1,11 +1,16 @@
+import java.util.ArrayList;
+
 /**
  * 다각형의 정보를 저장하는 Class
  * @author wonyoung
  *
  */
 public class PolygonData {
-	private float arrX[] = new float[2];
-	private float arrY[] = new float[2];
+	private ArrayList<Float> arrX = new ArrayList<Float>();
+	private ArrayList<Float> arrY = new ArrayList<Float>();
+	//private float arrX[] = new float[2];
+	//private float arrY[] = new float[2];
+	private boolean isInputted = false;
 	private String ploygonType = "";
 	private float[] color = {0.0f, 0.0f, 0.0f};
 	
@@ -18,36 +23,40 @@ public class PolygonData {
 		this.ploygonType = type;
 	}
 	/**
-	 * 도형의 좌 상단의 X,Y 좌표를 저장하는 메서드
-	 * @param leftTopX 좌 상단 X좌표
-	 * @param leftTopY 좌 상단 Y좌표
+	 * 도형의 X,Y 좌표를 저장하는 메서드
+	 * @param locationX X의 좌표
+	 * @param locationY Y의 좌표
 	 */
-	public void setLeftXY(float leftTopX, float leftTopY) {
-		arrX[0] = leftTopX;
-		arrY[0] = leftTopY;
+	public void addLocatinXY(float locationX, float locationY) {
+		arrX.add(locationX);
+		arrY.add(locationY);
 	}
-	/**
-	 * 도형의 우 하단의 X,Y좌표를 저장하는 메서드
-	 * @param rightBottomX 우 하단 X좌표
-	 * @param rightBottomY 우 하단 Y좌표
-	 */
-	public void setRightXY(float rightBottomX, float rightBottomY) {
-		arrX[1] = rightBottomX;
-		arrY[1] = rightBottomY;
+	
+	public void changeLastLocationXY(float locationX, float locationY) {
+		arrX.remove(arrX.size()-1);
+		arrX.add(locationX);
+		arrY.remove(arrY.size()-1);
+		arrY.add(locationY);
+		
 	}
+	
 	/**
 	 * 도형의 X좌표들을 반환해주는 메서드
 	 * @return 도형의 X좌표의 배열
 	 */
-	public float[] getPolygonDataX() {
-		return arrX;
+	public Float[] getPolygonDataX() {
+		Float returnX[] = new Float[arrX.size()];
+		returnX = arrX.toArray(returnX);
+		return returnX;
 	}
 	/**
 	 * 도형의 Y좌표들을 반환해주는 메서드
 	 * @return 도형의 Y좌표의 배열
 	 */
-	public float[] getPolygonDataY() {
-		return arrY;
+	public Float[] getPolygonDataY() {
+		Float returnY[] = new Float[arrY.size()];
+		returnY = arrY.toArray(returnY);
+		return returnY;
 	}
 	/**
 	 * 도형이 선택되었는지를 나타내는 메서드
@@ -77,8 +86,8 @@ public class PolygonData {
 	 * 현재 가지고있는 도형의 정보를 초기화 해주는 메서드
 	 */
 	public void clearData() {
-		arrX[0] = arrX[1] = 0;
-		arrY[0] = arrY[1] = 0;
+		arrX.clear();
+		arrY.clear();
 		ploygonType = "";
 		isSelected = false;
 	}
@@ -95,5 +104,20 @@ public class PolygonData {
 	 */
 	public float[] getColor() {
 		return color;
+	}
+	
+	/**
+	 * 도형의 정보가 입력되었는지 판별하기 위한 정보를 가져오는 메서드
+	 * @return 도형의 정보가 입력됬으면 true
+	 */
+	public boolean getInpputedData() {
+		return isInputted;
+	}
+	
+	/**
+	 * 도형의 정보가 입력되었다고 명시하는 메서드
+	 */
+	public void markInpputed() {
+		this.isInputted = true;
 	}
 }
