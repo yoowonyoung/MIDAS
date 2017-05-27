@@ -12,7 +12,6 @@ public class TappedPane extends JTabbedPane {
 	
 	public TappedPane() {
 		initUI();
-		//this.getSelectedIndex();
 	}
 	
 	public void initUI() {

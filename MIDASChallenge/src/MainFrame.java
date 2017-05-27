@@ -91,6 +91,10 @@ public class MainFrame extends JFrame {
 				// TODO Auto-generated method stub
 				String input = JOptionPane.showInputDialog("Enter File Name:");
 				System.out.println(input);
+				PanelInformation getInfo = new PanelInformation(input);
+				editPanel.addInfo(getInfo);// 추가된 다큐먼트 반영 및 탭 다시그리
+				sidebarPanel.refreshTree(getInfo);//트리 재구성 
+				MainFrame.this.repaint();
 			}
 		});
 		JMenuItem openFile = new JMenuItem("Open File");
@@ -103,8 +107,8 @@ public class MainFrame extends JFrame {
 				PanelInformation getInfo = chooser.openFile();
 				
 				if (getInfo != null) {
-					editPanel.addInfo(getInfo);
-					sidebarPanel.refreshTree(getInfo);
+					editPanel.addInfo(getInfo);// 추가된 다큐먼트 반영 및 탭 다시그리
+					sidebarPanel.refreshTree(getInfo);//트리 재구성 
 					MainFrame.this.repaint();
 				}
 				

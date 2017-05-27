@@ -38,7 +38,6 @@ public class EditPanel extends JPanel implements MouseListener{
 			g.drawLine(0, y, 980, y);
 			y+= 24;
 		}
-		//g.drawLine(x1, y1, x2, y2);
 		for(int i = 0; i < info.getClassList().size(); i++){
 			drawClass(info.getClassList().get(i));
 		}
@@ -52,6 +51,10 @@ public class EditPanel extends JPanel implements MouseListener{
 		classPanel.setBackground(Color.white);
 		classPanel.setBorder(new LineBorder(Color.black));
 		add(classPanel);
+	}
+	
+	private void drawArrow(RelationshipArrow arrow){
+		
 	}
 
 	@Override
