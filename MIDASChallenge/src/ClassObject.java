@@ -30,6 +30,9 @@ public class ClassObject implements Serializable{
 
 	public ClassObject(String className, Location classLocation) {
 		this(className, new ArrayList<String>(), new ArrayList<String>(), classLocation, null, null);
+		width = className.length();
+		System.out.println(width);
+		height = 3;
 	}
 
 	public ClassObject(String className, ArrayList<String> attributes, ArrayList<String> operations,
@@ -45,17 +48,23 @@ public class ClassObject implements Serializable{
 	
 	private void calWidthAndHeight() {
 		width = className.length();
-		for(int i = 0; i < attributes.size(); i ++) {
-			if(width < attributes.get(i).length()) {
-				width = attributes.get(i).length();
+		if(attributes != null) {
+			for(int i = 0; i < attributes.size(); i ++) {
+				if(width < attributes.get(i).length()) {
+					width = attributes.get(i).length();
+				}
 			}
 		}
-		for(int i = 0; i < operations.size(); i++) {
-			if(width < operations.get(i).length()) {
-				width = operations.get(i).length();
+		if(operations != null) {
+			for(int i = 0; i < operations.size(); i++) {
+				if(width < operations.get(i).length()) {
+					width = operations.get(i).length();
+				}
 			}
 		}
-		height = attributes.size() + operations.size() + 1;
+		if(attributes != null && operations != null){
+			height = attributes.size() + operations.size() + 1;
+		}
 	}
 	
 	public int getWidth() {
@@ -72,6 +81,7 @@ public class ClassObject implements Serializable{
 
 	public void setClassName(String className) {
 		this.className = className;
+		calWidthAndHeight();
 	}
 
 	public ArrayList<String> getAttributes() {
@@ -80,6 +90,7 @@ public class ClassObject implements Serializable{
 
 	public void setAttributes(ArrayList<String> attributes) {
 		this.attributes = attributes;
+		calWidthAndHeight();
 	}
 
 	public ArrayList<String> getOperations() {
@@ -88,6 +99,7 @@ public class ClassObject implements Serializable{
 
 	public void setOperations(ArrayList<String> operations) {
 		this.operations = operations;
+		calWidthAndHeight();
 	}
 
 	public RelationshipArrow getMyRelationshipArrow() {
