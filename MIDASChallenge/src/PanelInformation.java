@@ -17,9 +17,19 @@ public class PanelInformation {
 		arrowList= new ArrayList<RelationshipArrow>();
 	}
 
-
-
-	public void addClass(ClassObject obj){
-		
+	public void addClassObject(ClassObject obj){
+		classList.add(obj);
+	}
+	
+	public void addRelationshipArrow(RelationshipArrow arrow) {
+		arrowList.add(arrow);
+	}
+	
+	public ArrayList<ClassObject> getClassList() {
+		return classList;
+	}
+	
+	public ArrayList<RelationshipArrow> getRelationshipArrowList() {
+		return arrowList;
 	}
 }
