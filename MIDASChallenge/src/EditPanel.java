@@ -82,6 +82,10 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 			info.addClassObject(new ClassObject("New Class" + (info.getClassList().size() + 1),
 					new Location(e.getX(), e.getY(), e.getX() + 100, e.getY() + 200)));
 			MainFrame.mode = "Normal";
+		} else if(MainFrame.mode.equals("Interface")) {
+			MainFrame.mode = "Normal";
+		} else if(MainFrame.mode.equals("Abstrace")) {
+			MainFrame.mode = "Normal";
 		}
 
 	}

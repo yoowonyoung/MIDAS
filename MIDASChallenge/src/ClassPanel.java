@@ -201,6 +201,7 @@ public class ClassPanel extends JPanel implements MouseListener{
 		// TODO Auto-generated method stub
 		if(MainFrame.mode.equals("Erase")) {
 			BelongToEditPanel.deleteClassInfo(index);
+			MainFrame.mode = "Normal";
 		}
 	}
 

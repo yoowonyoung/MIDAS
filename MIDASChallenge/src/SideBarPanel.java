@@ -27,6 +27,8 @@ public class SideBarPanel extends javax.swing.JPanel {
 	 */
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton addClassBtn;
+	private javax.swing.JButton addInterfaceBtn;
+	private javax.swing.JButton addAbstractBtn;
 	private javax.swing.JButton addDependencyArrowBtn;
 	private javax.swing.JButton addExtendsArrowBtn;
 	private javax.swing.JPanel drawClassPanel;
@@ -53,6 +55,8 @@ public class SideBarPanel extends javax.swing.JPanel {
 
 		drawClassPanel = new javax.swing.JPanel();
 		addClassBtn = new javax.swing.JButton();
+		addInterfaceBtn = new javax.swing.JButton();
+		addAbstractBtn = new javax.swing.JButton();
 		drawArrowPanel = new javax.swing.JPanel();
 		addDependencyArrowBtn = new javax.swing.JButton();
 		addExtendsArrowBtn = new javax.swing.JButton();
@@ -78,6 +82,32 @@ public class SideBarPanel extends javax.swing.JPanel {
 			}
 
 		});
+		ImageIcon interfaceIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\interfaceIcon.png");
+		addInterfaceBtn.setIcon(interfaceIcon);
+		addInterfaceBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 액션리스너 달아야
+				// addClassBtn.setText("Class");
+				// addClassBtn.repaint();
+				MainFrame.mode = "Interface";
+			}
+
+		});
+		ImageIcon abstractIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\abstractIcon.png");
+		addAbstractBtn.setIcon(abstractIcon);
+		addAbstractBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 액션리스너 달아야
+				// addClassBtn.setText("Class");
+				// addClassBtn.repaint();
+				MainFrame.mode = "Abstract";
+			}
+
+		});
 
 		javax.swing.GroupLayout drawClassPanelLayout = new javax.swing.GroupLayout(drawClassPanel);
 		drawClassPanel.setLayout(drawClassPanelLayout);
@@ -85,6 +115,12 @@ public class SideBarPanel extends javax.swing.JPanel {
 				.setHorizontalGroup(drawClassPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(drawClassPanelLayout.createSequentialGroup().addContainerGap()
 								.addComponent(addClassBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+								.addContainerGap())
+						.addGroup(drawClassPanelLayout.createSequentialGroup().addContainerGap()
+								.addComponent(addInterfaceBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+								.addContainerGap())
+						.addGroup(drawClassPanelLayout.createSequentialGroup().addContainerGap()
+								.addComponent(addAbstractBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
 								.addContainerGap()));
 		drawClassPanelLayout
 				.setVerticalGroup(
@@ -92,8 +128,12 @@ public class SideBarPanel extends javax.swing.JPanel {
 								.addGroup(drawClassPanelLayout.createSequentialGroup().addContainerGap()
 										.addComponent(addClassBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70,
 												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(238, Short.MAX_VALUE)));
-
+										.addComponent(addInterfaceBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(addAbstractBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										));
+		
 		drawArrowPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
 		// addDependencyArrowBtn.setText("addDependencyArrowBtn");
