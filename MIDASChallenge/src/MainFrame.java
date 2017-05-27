@@ -40,6 +40,14 @@ public class MainFrame extends JFrame{
 		ImageIcon fileIcon = new ImageIcon(System.getProperty("user.dir")+"\\images\\fileIcon.png");
 		file.setMnemonic(KeyEvent.VK_F);
 		file.setIcon(fileIcon);
+		JMenu undo = new JMenu("Undo");
+		ImageIcon undoIcon = new ImageIcon(System.getProperty("user.dir")+"\\images\\undoIcon.png");
+		undo.setMnemonic(KeyEvent.VK_U);
+		undo.setIcon(undoIcon);
+		JMenu redo = new JMenu("Redo");
+		ImageIcon redoIcon = new ImageIcon(System.getProperty("user.dir")+"\\images\\redoIcon.png");
+		redo.setMnemonic(KeyEvent.VK_R);
+		redo.setIcon(redoIcon);
 		JMenuItem newFile = new JMenuItem("New");
 		newFile.setToolTipText("새로 파일을 만듭니다");
 		JMenuItem openFile = new JMenuItem("Open File");
@@ -53,6 +61,8 @@ public class MainFrame extends JFrame{
 		file.add(saveFile);
 		file.add(saveAsFile);
 		menuBar.add(file);
+		menuBar.add(undo);
+		menuBar.add(redo);
 		setJMenuBar(menuBar);
 	}
 	
