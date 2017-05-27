@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -11,8 +13,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableCellEditor;
 /**
  * 클래스 하나를 그리기 위한 패널
  * @author dnjsd
@@ -82,7 +87,6 @@ public class ClassPanel extends JPanel implements MouseListener{
 				operations.clearSelection();
 			}
 		});
-		
 		attributes.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -90,9 +94,10 @@ public class ClassPanel extends JPanel implements MouseListener{
 					int row = attributes.getSelectedRow();
 					int column = attributes.getSelectedColumn();
 					ArrayList<String> beforeData = classObjData.getAttributes();
-					System.out.println(row + " , " + column);
 					beforeData.set(row, (String) attributes.getValueAt(row, column));
 					classObjData.setAttributes(beforeData);
+					validate();
+					repaint();
 				}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 					ArrayList<String> beforeData = classObjData.getAttributes();
 					beforeData.add("new attr"+ (beforeData.size()+1));
@@ -132,6 +137,8 @@ public class ClassPanel extends JPanel implements MouseListener{
 					ArrayList<String> beforeData = classObjData.getOperations();
 					beforeData.set(row, (String) operations.getValueAt(row, column));
 					classObjData.setOperations(beforeData);
+					validate();
+					repaint();
 				}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 					ArrayList<String> beforeData = classObjData.getOperations();
 					beforeData.add("new op"+ (beforeData.size()+1));
@@ -174,8 +181,6 @@ public class ClassPanel extends JPanel implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		attributes.clearSelection();
-		operations.clearSelection();
 		if(MainFrame.mode.equals("Erase")) {
 			BelongToEditPanel.deleteClassInfo(index);
 		}
