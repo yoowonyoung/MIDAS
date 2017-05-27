@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Panel;
 
 import javax.swing.JPanel;
 /**
@@ -8,7 +9,10 @@ import javax.swing.JPanel;
  *
  */
 public class EditPanel extends JPanel {
-	public EditPanel() {
+	private PanelInformation info;
+	
+	public EditPanel(PanelInformation info) {
+		this.info = info;
 		initUI();
 	}
 	
