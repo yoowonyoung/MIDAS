@@ -1,36 +1,50 @@
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 /**
  * 클래스 하나를 그리기 위한 패널
  * @author dnjsd
  *
  */
-public class ClassPanel extends JPanel implements MouseListener, KeyListener{
-	private JTextArea className;
+public class ClassPanel extends JPanel implements MouseListener{
+	private JTextField className;
 	private JTable attributes;
 	private JTable operations;
 	private Location location;
+	private ClassObject classObjData;
 	public ClassPanel(ClassObject classObj) {
-		className = new JTextArea(classObj.getClassName());
+		this.classObjData = classObj;
+		className = new JTextField(classObjData.getClassName());
 		location = classObj.getClassLocation();
 		className.setLocation(0, 0);
 		className.setSize(classObj.getWidth()*25 + 10, 25);
 		className.setBackground(Color.WHITE);
 		className.setBorder(new LineBorder(Color.black));
 		className.addMouseListener(this);
+		className.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				classObjData.setClassName(className.getText());
+			}
+		});
 		//JTextArea attributes = new JTextArea(classObj.get);
 		add(className);
 		//String[] attr = new String[]{"attributes"};
@@ -43,13 +57,25 @@ public class ClassPanel extends JPanel implements MouseListener, KeyListener{
 		attributes.setSize(classObj.getWidth()*25 + 10, classObj.getAttributes().size()*20);
 		attributes.setBackground(Color.WHITE);
 		attributes.setBorder(new LineBorder(Color.black));
-		ListSelectionModel selectionModel = attributes.getSelectionModel();
-		selectionModel.addListSelectionListener(new ListSelectionListener() {
+		ListSelectionModel attributeSelectionModel = attributes.getSelectionModel();
+		attributeSelectionModel.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				// TODO Auto-generated method stub
 				operations.clearSelection();
+			}
+		});
+		attributes.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					int row = attributes.getSelectedRow();
+					int column = attributes.getSelectedColumn();
+					ArrayList<String> beforeData = classObj.getAttributes();
+					beforeData.set(row, (String) attributes.getValueAt(row, column));
+					classObjData.setAttributes(beforeData);
+				}
 			}
 		});
 		add(attributes);
@@ -62,8 +88,8 @@ public class ClassPanel extends JPanel implements MouseListener, KeyListener{
 		operations.setBackground(Color.WHITE);
 		operations.setBorder(new LineBorder(Color.black));
 		operations.setBorder(new LineBorder(Color.black));
-		ListSelectionModel selectionModel2 = operations.getSelectionModel();
-		selectionModel2.addListSelectionListener(new ListSelectionListener() {
+		ListSelectionModel operationSelectionModel = operations.getSelectionModel();
+		operationSelectionModel.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -112,21 +138,4 @@ public class ClassPanel extends JPanel implements MouseListener, KeyListener{
 		
 	}
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 }

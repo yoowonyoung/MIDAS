@@ -17,6 +17,7 @@ public class EditPanel extends JPanel implements MouseListener{
 	
 	public EditPanel(PanelInformation info) {
 		this.info = info;
+		this.addMouseListener(this);
 		initUI();
 	}
 	
@@ -60,6 +61,10 @@ public class EditPanel extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		if(MainFrame.mode.equals("Class")) {
+			info.addClassObject(new ClassObject("New Class"+(info.getClassList().size()+1), new Location(e.getX(), e.getY(), e.getX() + 100, e.getY() + 200)));
+			MainFrame.mode = "";
+		}
 	}
 
 	@Override
