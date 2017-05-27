@@ -68,15 +68,12 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 		}
 		classPanel.setLocation(location.getStartX(), location.getStartY());
 		location.setEndX(location.getStartX() + classObj.getWidth()*12);
-		location.setEndY(location.getStartX() + classObj.getHeight()*15 + 2);
+		location.setEndY(location.getStartY() + classObj.getHeight()*15 + 2);
 		classPanel.setBackground(Color.white);
 		classPanel.setBorder(new LineBorder(Color.black));
 		add(classPanel);
 	}
 
-	private void drawArrow(RelationshipArrow arrow) {
-
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -87,7 +84,7 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 					new Location(e.getX(), e.getY(), e.getX() + 100, e.getY() + 200), MainFrame.mode));
 			MainFrame.mode = "Normal";
 		}
-
+		//System.out.println("x : " + e.getX() + " , y : " + e.getY());
 	}
 
 	@Override

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class PanelInformation implements Serializable{
 	private ArrayList<ClassObject> classList;
 	private ArrayList<RelationshipArrow> arrowList;
+	private ClassObject srcObject;
+	private ClassObject dstObject;
 	private String documentName = "";
 	
 	
@@ -46,6 +48,27 @@ public class PanelInformation implements Serializable{
 
 	public void setDocumentName(String documentName) {
 		this.documentName = documentName;
+	}
+	
+
+	public void setSrcObject(ClassObject srcObject) {
+		// TODO Auto-generated method stub
+		this.srcObject = srcObject;
+	}
+	
+	public void setDstObject(ClassObject dstObject) {
+		// TODO Auto-generated method stub
+		this.dstObject = dstObject;
+	}
+	
+	public ClassObject getSrcObject() {
+		// TODO Auto-generated method stub
+		return this.srcObject;
+	}
+	
+	public ClassObject getDstObject() {
+		// TODO Auto-generated method stub
+		return this.dstObject;
 	}
 	
 	

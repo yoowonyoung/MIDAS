@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <workingSetManager>
-<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1495846540121_0" label="Window Working Set" name="Aggregate for window 1495846540121"/>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<workingSetManager>
-<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1494926533041_0" label="Window Working Set" name="Aggregate for window 1494926533041"/>
->>>>>>> branch 'master' of https://github.com/yoowonyoung/MIDAS
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1495912917876_0" label="Window Working Set" name="Aggregate for window 1495912917875"/>
 </workingSetManager>
