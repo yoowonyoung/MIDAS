@@ -29,7 +29,7 @@ public class EditPanel extends JPanel implements MouseListener{
 	public void paintComponent (Graphics g) {
 		super.paintComponent(g);
 		removeAll();
-
+		g.setColor(Color.GRAY);
 		for(int x = 0; x < 980; x++) {
 			g.drawLine(x, 0, x, 944);
 			x+= 24;
