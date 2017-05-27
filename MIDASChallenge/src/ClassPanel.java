@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -93,11 +94,19 @@ public class ClassPanel extends JPanel implements MouseListener{
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					int row = attributes.getSelectedRow();
 					int column = attributes.getSelectedColumn();
-					ArrayList<String> beforeData = classObjData.getAttributes();
-					beforeData.set(row, (String) attributes.getValueAt(row, column));
-					classObjData.setAttributes(beforeData);
-					validate();
-					repaint();
+					String inputData = (String) attributes.getValueAt(row, column);
+					if(TypeChecker.arrtibuteTypeCheck(inputData)) {
+						ArrayList<String> beforeData = classObjData.getAttributes();
+						beforeData.set(row, inputData);
+						classObjData.setAttributes(beforeData);
+						validate();
+						repaint();
+					}else {
+						JOptionPane.showMessageDialog(null,
+								TypeChecker.getErrorCode(),
+							    "Warnning",
+							    JOptionPane.WARNING_MESSAGE);
+					}
 				}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 					ArrayList<String> beforeData = classObjData.getAttributes();
 					beforeData.add("new attr"+ (beforeData.size()+1));
@@ -134,11 +143,20 @@ public class ClassPanel extends JPanel implements MouseListener{
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					int row = operations.getSelectedRow();
 					int column = operations.getSelectedColumn();
-					ArrayList<String> beforeData = classObjData.getOperations();
-					beforeData.set(row, (String) operations.getValueAt(row, column));
-					classObjData.setOperations(beforeData);
-					validate();
-					repaint();
+					String inputData =  (String) operations.getValueAt(row, column);
+					if(TypeChecker.operationTypeCheck(inputData)){
+						ArrayList<String> beforeData = classObjData.getOperations();
+						beforeData.set(row, (String) operations.getValueAt(row, column));
+						classObjData.setOperations(beforeData);
+						validate();
+						repaint();
+					}else {
+						JOptionPane.showMessageDialog(null,
+								TypeChecker.getErrorCode(),
+							    "Warnning",
+							    JOptionPane.WARNING_MESSAGE);
+					}
+					
 				}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 					ArrayList<String> beforeData = classObjData.getOperations();
 					beforeData.add("new op"+ (beforeData.size()+1));
