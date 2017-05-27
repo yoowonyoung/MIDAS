@@ -1,0 +1,2 @@
+INDEX VERSION 1.130+/Users/wonjerry/Documents/newChallenge/MIDAS/.metadata/.plugins/org.eclipse.jdt.core
+45386426.index
