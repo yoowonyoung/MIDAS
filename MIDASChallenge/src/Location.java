@@ -53,6 +53,14 @@ public class Location implements Serializable {
 
 	// TODO can insert another calculate method
 
+	public boolean calculateBondary(Location arrowStartLocation){
+		if(this.startX < arrowStartLocation.startX && this.endX > arrowStartLocation.startX){
+			if(this.startY < arrowStartLocation.getEndY() && this.endY > arrowStartLocation.getEndY())
+				return true;
+			else return false;
+		}else return false;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
