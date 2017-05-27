@@ -6,6 +6,7 @@ import java.io.Serializable;
  * @author dnjsd
  *
  */
+
 public class RelationshipArrow implements Serializable{
 	private ClassObject fromObject;
 	private ClassObject toObject;

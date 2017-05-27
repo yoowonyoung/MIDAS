@@ -5,13 +5,22 @@ import java.io.Serializable;
  * @author wonjerry 클래스 또는 화살표의 위치정보 및 좌표연산 관련 클래스 좌표 연산 관련 메소드가 추가 될 수 있다.
  *
  */
-public class Location implements Serializable{
+public class Location implements Serializable {
 
-	private int startX, startY, endX, endY;
+	private int startX, startY, midX, midY, endX, endY;
 
 	public Location(int startX, int startY, int endX, int endY) {
 		setStartX(startX);
 		setStartY(startY);
+		setEndX(endX);
+		setEndY(endY);
+	}
+
+	public Location(int startX, int startY, int midX, int midY, int endX, int endY) {
+		setStartX(startX);
+		setStartY(startY);
+		setMidX(midX);
+		setMidY(midY);
 		setEndX(endX);
 		setEndY(endY);
 	}
@@ -46,6 +55,22 @@ public class Location implements Serializable{
 
 	public void setEndY(int endY) {
 		this.endY = endY;
+	}
+
+	public int getMidX() {
+		return midX;
+	}
+
+	public void setMidX(int midX) {
+		this.midX = midX;
+	}
+
+	public int getMidY() {
+		return midY;
+	}
+
+	public void setMidY(int midY) {
+		this.midY = midY;
 	}
 
 	// TODO can insert another calculate method
