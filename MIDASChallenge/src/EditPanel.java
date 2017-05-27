@@ -45,26 +45,13 @@ public class EditPanel extends JPanel implements MouseListener{
 	}
 	
 	private void drawClass(ClassObject classObj) {
-		JTextArea className = new JTextArea(classObj.getClassName());
+		ClassPanel classPanel = new ClassPanel(classObj);
 		Location location = classObj.getClassLocation();
-		className.setLocation(location.getStartX(), location.getStartY());
-		className.setSize(classObj.getWidth()*25 + 10, 25);
-		className.setBackground(Color.WHITE);
-		className.setBorder(new LineBorder(Color.black));
-		//JTextArea attributes = new JTextArea(classObj.get);
-		add(className);
-		JList attributes = new JList(classObj.getAttributes().toArray());
-		attributes.setLocation(location.getStartX(), location.getStartY() + 25);
-		attributes.setSize(classObj.getWidth()*25 + 10, classObj.getAttributes().size()*25);
-		attributes.setBackground(Color.WHITE);
-		attributes.setBorder(new LineBorder(Color.black));
-		add(attributes);
-		JList operations = new JList(classObj.getOperations().toArray());
-		operations.setLocation(location.getStartX(), location.getStartY() + 25 + classObj.getOperations().size()*25);
-		operations.setSize(classObj.getWidth()*25 + 10, classObj.getOperations().size()*25);
-		operations.setBackground(Color.WHITE);
-		operations.setBorder(new LineBorder(Color.black));
-		add(operations);
+		classPanel.setSize(classObj.getWidth()*25 + 10, classObj.getHeight()*25 + 20);
+		classPanel.setLocation(location.getStartX(), location.getStartY());
+		classPanel.setBackground(Color.white);
+		classPanel.setBorder(new LineBorder(Color.black));
+		add(classPanel);
 	}
 
 	@Override
