@@ -1,8 +1,9 @@
-package midasClient;
+package midas;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.text.DecimalFormat;
@@ -15,10 +16,18 @@ public class Client {
 	private String nickname = "asd";
 	private boolean isConnected = false;
 	private Socket firstClientSocket;
+	private int EnteredRoomID;
+	private EditPanel editPanel;
+	private PanelInformation panelInformation;
 	public static Socket secondClientSocket;
+	
+	
 	
 	public void ConnectWithServer() {
 		try {
+			panelInformation = new PanelInformation("");
+			editPanel = new EditPanel(panelInformation);
+			
 			//52000포트로 첫번째 연결을 시도한다.
 			firstClientSocket = new Socket(server_ip,firstServerPort);
 			System.out.println("first socket conneted");
@@ -86,4 +95,28 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
+	
+	public int GetEnteredRoomID() {
+		return EnteredRoomID;
+	}
+	
+	public void ReceiveDataInRoom() {
+		String objectType = ReceiveData(secondClientSocket,3);
+		if(objectType.equals("ClassObject")) {
+			try {
+				ObjectInputStream ois = new ObjectInputStream(secondClientSocket.getInputStream());
+				ClassObject classObject = (ClassObject)ois.readObject();
+				editPanel.ReceiveClassFromServer(classObject);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
 }

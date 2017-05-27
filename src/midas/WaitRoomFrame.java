@@ -1,4 +1,4 @@
-package midasClient;
+package midas;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -31,7 +31,7 @@ public class WaitRoomFrame extends JFrame {
 	private Container container;
 	private JTable jTable;
 	private DefaultTableModel tableModel;
-	
+	public static boolean isWaitList = true;
 	public WaitRoomFrame() {
 		roomVector = new Vector<Room>();
 		tableColumn = new Vector<String>();
@@ -201,9 +201,6 @@ public class WaitRoomFrame extends JFrame {
 			
 		}
 		
-	
-		
-		
 	}
 	
 	/**
@@ -211,7 +208,8 @@ public class WaitRoomFrame extends JFrame {
 	 * 
 	 */
 	public void CreateRoom() {
-		new CreateRoomFrame();
+		CreateRoomFrame frame = new CreateRoomFrame();
+		
 	}
 	/**
 	 * 방에 입장하는 함수
@@ -228,8 +226,9 @@ public class WaitRoomFrame extends JFrame {
 		
 		else if(result.equals("ok")){
 			//여기에 클래스 다이어그램 제작 프로그램 실행부분 넣는다.
-			System.out.println("enter");
-			//Client.isWaitVector = false;
+			new MainFrame();
+			isWaitList = false;
+			dispose();
 		}
 		
 				
@@ -238,7 +237,7 @@ public class WaitRoomFrame extends JFrame {
 	class RoomHandlingThread extends Thread {
 		Client client = new Client();
 		public void run() {
-			while(true) {
+			while(isWaitList) {
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
@@ -251,18 +250,8 @@ public class WaitRoomFrame extends JFrame {
 				ResetRoomList();
 			}
 			
+			
 		}
-	}
-
-	
-	
+	}	
 }
-
-
-
-/**
- * Room의 정보를 받고 갱신하는 쓰레드
- * @author Ji Hoon
- *
- */
 

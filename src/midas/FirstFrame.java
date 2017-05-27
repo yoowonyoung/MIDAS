@@ -1,4 +1,4 @@
-package midasClient;
+package midas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,13 +7,11 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class MainFrame extends JFrame{
+public class FirstFrame extends JFrame{
 	private JButton startButton;
 	
-	/**
-	 * 방 목록을 보여준다.
-	 */
-	public MainFrame() {
+
+	public FirstFrame() {
 		super("Hello 9 Team");
 		MainScreen();
 	}

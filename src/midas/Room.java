@@ -1,4 +1,4 @@
-package midasClient;
+package midas;
 
 class Room {
 	private String roomName;
