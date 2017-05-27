@@ -5,7 +5,11 @@
  */
 public class TypeChecker {
 	private static String errorCode = "";
-	
+	/**
+	 * 입력된 Attribute을 검사하는 메서드
+	 * @param attr 입력받은 Attribute String
+	 * @return 정상적인 입력이면 true, 아니면 false
+	 */
 	public static boolean arrtibuteTypeCheck(String attr) {
 		char ch[] = attr.toCharArray();
 		if(ch[0] == '+' || ch[0] == '-' || ch[0] == '#') {
@@ -26,7 +30,11 @@ public class TypeChecker {
 		}
 		return false;
 	}
-	
+	/**
+	 * 입력받은 Operation을 검사하는 메서드
+	 * @param op 입력받은 Operation 메서드
+	 * @return 정상적인 입력이면 true, 아니면 false
+	 */
 	public static boolean operationTypeCheck(String op) {
 		char ch[] = op.toCharArray();
 		if(ch[0] == '+' || ch[0] == '-'|| ch[0] == '#') {
@@ -51,7 +59,10 @@ public class TypeChecker {
 		}
 		return false;
 	}
-	
+	/**
+	 * 에러가 발생 하였을 경우, 어떤 종류의 에러인지 알기위해 에러 코드를 가져오는 메서드
+	 * @return 발생한 에러의 종류를 나타내는 클래스
+	 */
 	public static String getErrorCode() {
 		return errorCode;
 	}
