@@ -71,6 +71,11 @@ public class Location implements Serializable {
 		result = prime * result + startY;
 		return result;
 	}
+	
+	public boolean calculateUpDown(Location arrowStartLocation){
+		if(this.startY >= arrowStartLocation.endY) return true;
+		else return false;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

@@ -70,9 +70,6 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 		add(classPanel);
 	}
 
-	private void drawArrow(RelationshipArrow arrow) {
-
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -87,7 +84,7 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 		} else if(MainFrame.mode.equals("Abstrace")) {
 			MainFrame.mode = "Normal";
 		}
-
+		//System.out.println("x : " + e.getX() + " , y : " + e.getY());
 	}
 
 	@Override

@@ -31,13 +31,12 @@ public class MainFrame extends JFrame {
 
 	private final JSplitPane splitPane;
 	private final SideBarPanel sidebarPanel;
-	private final TappedPane editPanel;
+	public final static TappedPane editPanel = new TappedPane();
 	public static String mode = "Class";
 	// xprivate final sideBarPenal sidePanel;
 
 	public MainFrame() {
 		sidebarPanel = new SideBarPanel();
-		editPanel = new TappedPane();
 		splitPane = new JSplitPane();
 		initUI();
 	}
