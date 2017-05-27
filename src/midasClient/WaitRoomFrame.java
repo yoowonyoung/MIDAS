@@ -211,7 +211,8 @@ public class WaitRoomFrame extends JFrame {
 	 * 
 	 */
 	public void CreateRoom() {
-		new CreateRoomFrame();
+		CreateRoomFrame frame = new CreateRoomFrame();
+		
 	}
 	/**
 	 * 방에 입장하는 함수
@@ -228,8 +229,8 @@ public class WaitRoomFrame extends JFrame {
 		
 		else if(result.equals("ok")){
 			//여기에 클래스 다이어그램 제작 프로그램 실행부분 넣는다.
-			System.out.println("enter");
-			//Client.isWaitVector = false;
+			new MainFrame();
+			dispose();
 		}
 		
 				
@@ -252,17 +253,6 @@ public class WaitRoomFrame extends JFrame {
 			}
 			
 		}
-	}
-
-	
-	
+	}	
 }
-
-
-
-/**
- * Room의 정보를 받고 갱신하는 쓰레드
- * @author Ji Hoon
- *
- */
 

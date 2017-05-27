@@ -23,6 +23,7 @@ public class CreateRoomFrame extends JFrame{
 	
 	private JTextField roomNameField;
 	private JComboBox personLimitComboBox;
+
 	public CreateRoomFrame() {
 		createButton = new JButton("Create");
 		cancelButton = new JButton("Cancel");
@@ -56,12 +57,13 @@ public class CreateRoomFrame extends JFrame{
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
+		
 		//createButton을 눌렀을 때의 액션
 		createButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SendRoomInfoToServer();
 				//클래스 다이어그램 제작 프로그램 실행
-				
+				new MainFrame();
 				dispose();
 				
 			}
