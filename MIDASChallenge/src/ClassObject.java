@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -6,7 +7,7 @@ import java.util.ArrayList;
  * @author dnjsd
  *
  */
-public class ClassObject {
+public class ClassObject implements Serializable{
 	private String className;
 	private ArrayList<String> arrtibutes;
 	private ArrayList<String> operations;

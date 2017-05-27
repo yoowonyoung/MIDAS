@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -6,7 +7,7 @@ import java.util.ArrayList;
  * @author dnjsd
  *
  */
-public class PanelInformation {
+public class PanelInformation implements Serializable{
 	private ArrayList<ClassObject> classList;
 	private ArrayList<RelationshipArrow> arrowList;
 	

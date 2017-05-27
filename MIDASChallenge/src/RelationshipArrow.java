@@ -1,10 +1,12 @@
+import java.io.Serializable;
+
 /**
  * 클래스간의 관계 정보를 저장하는 클래스
  * 
  * @author dnjsd
  *
  */
-public class RelationshipArrow {
+public class RelationshipArrow implements Serializable{
 	private ClassObject fromObject;
 	private ClassObject toObject;
 	private Location arrowLocation;
