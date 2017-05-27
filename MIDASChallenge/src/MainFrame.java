@@ -4,7 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.ImageIcon;
@@ -32,8 +36,8 @@ public class MainFrame extends JFrame {
 	private final SideBarPanel sidebarPanel;
 	private final TappedPane editPanel;
 	public static String mode = "Class";
-	//xprivate final sideBarPenal sidePanel;
-	
+	// xprivate final sideBarPenal sidePanel;
+
 	public MainFrame() {
 		sidebarPanel = new SideBarPanel();
 		editPanel = new TappedPane();
@@ -53,7 +57,7 @@ public class MainFrame extends JFrame {
 		splitPane.setEnabled(false);
 		setSize(width, height);
 		createMenuBar();
-		
+
 		getContentPane().setLayout(new GridLayout());
 		getContentPane().add(splitPane);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,11 +76,11 @@ public class MainFrame extends JFrame {
 		file.setMnemonic(KeyEvent.VK_F);
 		file.setIcon(fileIcon);
 		JMenu undo = new JMenu("Undo");
-		ImageIcon undoIcon = new ImageIcon(System.getProperty("user.dir")+"\\images\\undoIcon.png");
+		ImageIcon undoIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\undoIcon.png");
 		undo.setMnemonic(KeyEvent.VK_U);
 		undo.setIcon(undoIcon);
 		JMenu redo = new JMenu("Redo");
-		ImageIcon redoIcon = new ImageIcon(System.getProperty("user.dir")+"\\images\\redoIcon.png");
+		ImageIcon redoIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\redoIcon.png");
 		redo.setMnemonic(KeyEvent.VK_R);
 		redo.setIcon(redoIcon);
 		JMenuItem newFile = new JMenuItem("New");
@@ -98,9 +102,28 @@ public class MainFrame extends JFrame {
 				JFileChooser chooser = new JFileChooser();
 				int returnVal = chooser.showOpenDialog(MainFrame.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-			        File file = chooser.getSelectedFile();
-			        
-			    }
+					File file = chooser.getSelectedFile();
+					for (PanelInformation ele : editPanel.getInfos()) {
+						FileInputStream fis;
+						try {
+							// TODO 읽어 온 파일 트리 목록과 Main에 추가하기
+							fis = new FileInputStream(chooser.getSelectedFile().toString());
+							ObjectInputStream ois = new ObjectInputStream(fis);
+							PanelInformation temp = (PanelInformation) ois.readObject();
+							ois.close();
+						} catch (FileNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
+					}
+				}
 			}
 		});
 		JMenuItem saveFile = new JMenuItem("Save");
@@ -110,30 +133,40 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				JDialog.setDefaultLookAndFeelDecorated(true);
-				int response = JOptionPane.showConfirmDialog(null, "Do you want to Save?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-			    if (response == JOptionPane.NO_OPTION) {
-			      System.out.println("No button clicked");
-			    } else if (response == JOptionPane.YES_OPTION) {
-			      System.out.println("Yes button clicked");
-			    } else if (response == JOptionPane.CLOSED_OPTION) {
-			      System.out.println("JOptionPane closed");
-			    }
+				int response = JOptionPane.showConfirmDialog(null, "Do you want to Save?", "Confirm",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (response == JOptionPane.NO_OPTION) {
+					System.out.println("No button clicked");
+				} else if (response == JOptionPane.YES_OPTION) {
+					System.out.println("Yes button clicked");
+					PanelInformation saveInfo = editPanel.getNowSelectedInfo();
+					try {
+						FileOutputStream fos = new FileOutputStream(saveInfo.getDocumentName() + ".dat");
+						ObjectOutputStream oos = new ObjectOutputStream(fos);
+						oos.writeObject((Object) saveInfo);
+						oos.close();
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				} else if (response == JOptionPane.CLOSED_OPTION) {
+					System.out.println("JOptionPane closed");
+				}
 			}
 		});
+		
 		JMenuItem saveAsFile = new JMenuItem("Save As...");
 		saveAsFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				JFileChooser chooser = new JFileChooser();
-				int returnVal = chooser.showSaveDialog(MainFrame.this);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-			        File file = chooser.getSelectedFile();
-			        //FileOutputStream fos = new FileOutputStream(chooser.getSelectedFile().toString()+chooser.getFileFilter().getDescription() );
-					//ObjectOutputStream oos = new ObjectOutputStream(fos);
-					//oos.writeObject(project);
-					//oos.close();
-			    }
+				PanelInformation saveInfo = editPanel.getNowSelectedInfo();
+				FileChooser chooser = new FileChooser(MainFrame.this);
+				chooser.saveFile(saveInfo);
 			}
 		});
 		saveAsFile.setToolTipText("파일을 다른 이름으로 저장합니다");

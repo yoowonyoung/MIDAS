@@ -10,10 +10,16 @@ import java.util.ArrayList;
 public class PanelInformation implements Serializable{
 	private ArrayList<ClassObject> classList;
 	private ArrayList<RelationshipArrow> arrowList;
+	private String documentName = "";
 	
 	
-	
-	public PanelInformation() {
+	@Override
+	public String toString() {
+		return "PanelInformation [documentName=" + documentName + "]";
+	}
+
+	public PanelInformation(String name) {
+		this.documentName = name;
 		classList = new ArrayList<ClassObject>();
 		arrowList= new ArrayList<RelationshipArrow>();
 	}
@@ -33,4 +39,14 @@ public class PanelInformation implements Serializable{
 	public ArrayList<RelationshipArrow> getRelationshipArrowList() {
 		return arrowList;
 	}
+
+	public String getDocumentName() {
+		return documentName;
+	}
+
+	public void setDocumentName(String documentName) {
+		this.documentName = documentName;
+	}
+	
+	
 }
