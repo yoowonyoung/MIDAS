@@ -69,7 +69,7 @@ public class SideBarPanel extends javax.swing.JPanel {
 		drawClassPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
 		// addClassBtn.setText("addClassBtn");
-		ImageIcon classIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\classIcon2.png");
+		ImageIcon classIcon = new ImageIcon(getClass().getResource("classIcon.png"));
 		addClassBtn.setIcon(classIcon);
 		addClassBtn.addActionListener(new ActionListener() {
 
@@ -82,7 +82,7 @@ public class SideBarPanel extends javax.swing.JPanel {
 			}
 
 		});
-		ImageIcon interfaceIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\interfaceIcon.png");
+		ImageIcon interfaceIcon = new ImageIcon(getClass().getResource("interfaceIcon.png"));
 		addInterfaceBtn.setIcon(interfaceIcon);
 		addInterfaceBtn.addActionListener(new ActionListener() {
 
@@ -95,7 +95,7 @@ public class SideBarPanel extends javax.swing.JPanel {
 			}
 
 		});
-		ImageIcon abstractIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\abstractIcon.png");
+		ImageIcon abstractIcon = new ImageIcon(getClass().getResource("abstractIcon.png"));
 		addAbstractBtn.setIcon(abstractIcon);
 		addAbstractBtn.addActionListener(new ActionListener() {
 
@@ -137,7 +137,7 @@ public class SideBarPanel extends javax.swing.JPanel {
 		drawArrowPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
 		// addDependencyArrowBtn.setText("addDependencyArrowBtn");
-		ImageIcon dependencyArrowIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\dependencyarrow.png");
+		ImageIcon dependencyArrowIcon = new ImageIcon(getClass().getResource("dependencyarrow.png"));
 		addDependencyArrowBtn.setIcon(dependencyArrowIcon);
 		addDependencyArrowBtn.addActionListener(new ActionListener() {
 
@@ -160,7 +160,7 @@ public class SideBarPanel extends javax.swing.JPanel {
 		});
 
 		// addExtendsArrowBtn.setText("addExtendsArrowBtn");
-		ImageIcon extendsArrowIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\extendsarrow.png");
+		ImageIcon extendsArrowIcon = new ImageIcon(getClass().getResource("extendsarrow.png"));
 		addExtendsArrowBtn.setIcon(extendsArrowIcon);
 
 		addExtendsArrowBtn.addActionListener(new ActionListener() {
