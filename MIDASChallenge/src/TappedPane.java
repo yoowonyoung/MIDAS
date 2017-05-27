@@ -27,6 +27,7 @@ public class TappedPane extends JTabbedPane {
 		this.infos.add(getInfo);
 		EditPanel jp = new EditPanel(getInfo);
 		addTab(getInfo.getDocumentName(), jp);
+		setTabComponentAt(infos.size()-1, new CustomTab(this));
 	}
 
 	public ArrayList<PanelInformation> getInfos() {
