@@ -58,6 +58,14 @@ public class ClassObject implements Serializable{
 		height = attributes.size() + operations.size() + 1;
 	}
 	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
 	public String getClassName() {
 		return className;
 	}
