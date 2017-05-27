@@ -99,35 +99,19 @@ public class MainFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				JFileChooser chooser = new JFileChooser();
-				int returnVal = chooser.showOpenDialog(MainFrame.this);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					File file = chooser.getSelectedFile();
-					for (PanelInformation ele : editPanel.getInfos()) {
-						FileInputStream fis;
-						try {
-							// TODO 읽어 온 파일 트리 목록과 Main에 추가하기
-							fis = new FileInputStream(chooser.getSelectedFile().toString());
-							ObjectInputStream ois = new ObjectInputStream(fis);
-							PanelInformation temp = (PanelInformation) ois.readObject();
-							ois.close();
-						} catch (FileNotFoundException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (ClassNotFoundException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-
-					}
+				FileChooser chooser = new FileChooser(MainFrame.this);
+				PanelInformation getInfo = chooser.openFile();
+				
+				if (getInfo != null) {
+					editPanel.addInfo(getInfo);
+					sidebarPanel.refreshTree(getInfo);
+					MainFrame.this.repaint();
 				}
+				
 			}
 		});
 		JMenuItem saveFile = new JMenuItem("Save");
-		saveFile.setToolTipText("파일을 저장합니다");
+		saveFile.setToolTipText("파일을 저장합니다"); // 그냥 저장하는거라서 filechooser를 바꿀까 고민
 		saveFile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

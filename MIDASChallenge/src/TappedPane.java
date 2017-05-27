@@ -22,35 +22,12 @@ public class TappedPane extends JTabbedPane {
 				return 40;
 			}
 		});
-		//큐를 이용해서 패널 정보를 불러 와야함
-		ArrayList<String> arrtibutes = new ArrayList<String>();
-		arrtibutes.add("attr1");
-		arrtibutes.add("attr2");
-		ArrayList<String> operations = new ArrayList<String>();
-		operations.add("op1");
-		operations.add("op2");
-		Location location = new Location(100, 100, 200, 200);
-
-		PanelInformation info = new PanelInformation("info1");
-		info.addClassObject(new ClassObject("Test1", arrtibutes, operations, location, null, null));
-		EditPanel jp1 = new EditPanel(info);
-
-		arrtibutes.add("attr3");
-		operations.add("op3");
-		infos.add(info);
-		PanelInformation info2 = new PanelInformation("info2");
-		info2.addClassObject(new ClassObject("Test1", arrtibutes, operations, location, null, null));
-		EditPanel jp2 = new EditPanel(info2);
-		infos.add(info2);
-		
-		addTab("tap1", jp1);
-		addTab("tap2", jp2);
-		
-
 	}
 	
 	public void addInfo(PanelInformation getInfo){
 		this.infos.add(getInfo);
+		EditPanel jp = new EditPanel(getInfo);
+		addTab(getInfo.getDocumentName(), jp);
 	}
 
 	public ArrayList<PanelInformation> getInfos() {
@@ -62,6 +39,7 @@ public class TappedPane extends JTabbedPane {
 	}
 	
 	public PanelInformation getNowSelectedInfo(){
+		System.out.println("in getNowSelected : " + infos.get(this.getSelectedIndex()).getDocumentName());
 		return infos.get(this.getSelectedIndex());
 	}
 }

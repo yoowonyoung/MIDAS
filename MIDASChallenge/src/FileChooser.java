@@ -20,7 +20,7 @@ public class FileChooser{
 		this.frm = frm;
     }
 	
-	void openFile(final TappedPane pane){
+	PanelInformation openFile(){
 		int returnVal = fileChooser.showOpenDialog(frm);
         if( returnVal == JFileChooser.APPROVE_OPTION)
         {
@@ -30,7 +30,7 @@ public class FileChooser{
 				
 				PanelInformation document = (PanelInformation)ois.readObject();
 				// 가져 오고 나서 리스트에 추가 
-				pane.addInfo(document);
+				return document;
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -46,6 +46,7 @@ public class FileChooser{
         {
             System.out.println("취소합니다");
         }
+        return null;
 	}
 	
 	void saveFile(PanelInformation panelInformation){
@@ -53,8 +54,12 @@ public class FileChooser{
         if( returnVal == JFileChooser.APPROVE_OPTION)
         {
         	try {
-        		panelInformation.setDocumentName(fileChooser.getSelectedFile().toString()); 
-        		FileOutputStream fos = new FileOutputStream(panelInformation.getDocumentName() + ".dat");
+        		String path = fileChooser.getSelectedFile().toString();
+        		String pathsplit[] = fileChooser.getSelectedFile().toString().split("/");
+        		String fileName = pathsplit[pathsplit.length-1];
+        		System.out.println(fileName);
+        		panelInformation.setDocumentName(fileName); 
+        		FileOutputStream fos = new FileOutputStream(path + ".dat");
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
 				oos.writeObject(panelInformation);
 				oos.close();
