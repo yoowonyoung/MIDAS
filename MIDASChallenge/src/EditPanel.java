@@ -34,4 +34,8 @@ public class EditPanel extends JPanel {
 		}
 		//g.drawLine(x1, y1, x2, y2);
 	}
+	
+	private void drawClass() {
+		
+	}
 }
