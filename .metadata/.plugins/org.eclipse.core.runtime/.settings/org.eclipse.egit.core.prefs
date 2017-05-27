@@ -1,4 +1,6 @@
 GitRepositoriesView.GitDirectories=/Users/wonjerry/Documents/newChallenge/.git\:
 GitRepositoriesView.GitDirectories.relative=/Users/wonjerry/Documents/newChallenge/.git\:
-RepositorySearchDialogSearchPath=/Users/wonjerry/newChallenge
+RepositorySearchDialogDeepSearch=false
+RepositorySearchDialogSearchPath=/Users/wonjerry/Documents/newChallenge/MIDAS/MIDASChallenge
+RepositorySearchDialogSkipHidden=false
 eclipse.preferences.version=1

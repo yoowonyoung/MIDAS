@@ -21,9 +21,11 @@ public class DialgFrame extends javax.swing.JFrame {
 	
 	private PanelInformation info;
 	private int tabNum;
-    public DialgFrame(PanelInformation info, int tabnum) {
+	private int mode ; 
+    public DialgFrame(PanelInformation info, int tabnum , int mode) {
     	this.info = info;
     	this.tabNum = tabNum;
+    	this.mode = mode;
         initComponents();
     }
 
@@ -86,19 +88,36 @@ public class DialgFrame extends javax.swing.JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				ClassObject class1 = info.getSrcObject();
-				ClassObject class2 = info.getDstObject();
-				if(class1.getClassLocation().calculateUpDown(class2.getClassLocation())){
-					Location class1Location = class1.getClassLocation();
-					Location class2Location = class2.getClassLocation();
-					System.out.println("in dialogFrame class1 : " + class1Location);
-					System.out.println("in dialogFrame class2 : " + class2Location);
-					Location location = new Location((class1Location.getStartX()+class1Location.getEndX())/2,class1Location.getStartY(),(class2Location.getStartX()+class2Location.getEndX())/2,class2Location.getEndY());
-					//((EditPanel)MainFrame.editPanel.getTabComponentAt(tabNum)).setArrorwlocation(location);
-					System.out.println("in dialogFrame location : " + location);
-					info.addRelationshipArrow(new RelationshipArrow(class1, class2,location, "Dependency"));
-					MainFrame.editPanel.repaint();
+				if(mode == 0){
+					ClassObject class1 = info.getSrcObject();
+					ClassObject class2 = info.getDstObject();
+					if(class1.getClassLocation().calculateUpDown(class2.getClassLocation())){
+						Location class1Location = class1.getClassLocation();
+						Location class2Location = class2.getClassLocation();
+						System.out.println("in dialogFrame class1 : " + class1Location);
+						System.out.println("in dialogFrame class2 : " + class2Location);
+						Location location = new Location((class1Location.getStartX()+class1Location.getEndX())/2,class1Location.getStartY(),(class2Location.getStartX()+class2Location.getEndX())/2,class2Location.getEndY());
+						//((EditPanel)MainFrame.editPanel.getTabComponentAt(tabNum)).setArrorwlocation(location);
+						System.out.println("in dialogFrame location : " + location);
+						info.addRelationshipArrow(new RelationshipArrow(class1, class2,location, "Dependency"));
+						MainFrame.editPanel.repaint();
+					}
+				}else if (mode == 1){
+					ClassObject class1 = info.getSrcObject();
+					ClassObject class2 = info.getDstObject();
+					if(class1.getClassLocation().calculateUpDown(class2.getClassLocation())){
+						Location class1Location = class1.getClassLocation();
+						Location class2Location = class2.getClassLocation();
+						System.out.println("in dialogFrame class1 : " + class1Location);
+						System.out.println("in dialogFrame class2 : " + class2Location);
+						Location location = new Location((class1Location.getStartX()+class1Location.getEndX())/2,class1Location.getStartY(),(class2Location.getStartX()+class2Location.getEndX())/2,class2Location.getEndY());
+						//((EditPanel)MainFrame.editPanel.getTabComponentAt(tabNum)).setArrorwlocation(location);
+						System.out.println("in dialogFrame location : " + location);
+						info.addRelationshipArrow(new RelationshipArrow(class1, class2,location, "Extends"));
+						MainFrame.editPanel.repaint();
+					}
 				}
+				
 				DialgFrame.this.dispose();
 			}
         	
@@ -111,6 +130,7 @@ public class DialgFrame extends javax.swing.JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
 				DialgFrame.this.dispose();
 			}
         	

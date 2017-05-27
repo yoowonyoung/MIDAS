@@ -151,7 +151,7 @@ public class SideBarPanel extends javax.swing.JPanel {
 					PanelInformation info = MainFrame.editPanel.getNowSelectedInfo();
 					int tabNum = MainFrame.editPanel.getNowSelectedIndex();
 					if(info.getClassList().size() > 1){
-						DialgFrame frame = new DialgFrame(info,tabNum);
+						DialgFrame frame = new DialgFrame(info,tabNum,1);
 						frame.setVisible(true);
 					}
 				}
@@ -170,7 +170,16 @@ public class SideBarPanel extends javax.swing.JPanel {
 				// TODO 액션리스너 달아야
 				// addExtendsArrowBtn.setText("Extends");
 				// addExtendsArrowBtn.repaint();
-				MainFrame.mode = "Extends";
+				//MainFrame.mode = "Extends";
+				
+				if ( MainFrame.editPanel.getInfos().size() > 0 ){
+					PanelInformation info = MainFrame.editPanel.getNowSelectedInfo();
+					int tabNum = MainFrame.editPanel.getNowSelectedIndex();
+					if(info.getClassList().size() > 1){
+						DialgFrame frame = new DialgFrame(info,tabNum,0);
+						frame.setVisible(true);
+					}
+				}
 			}
 
 		});

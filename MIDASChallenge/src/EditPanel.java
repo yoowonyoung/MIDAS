@@ -61,16 +61,16 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 
 		for (RelationshipArrow arrow : info.getRelationshipArrowList()) {
 			Location location = arrow.getArrowLocation();
-			if (arrow.getRule().equals("Dependency")) {
+			if (arrow.getRule().equals("Extends")) {
 
-				drawArrow(g2, location.getStartX(), location.getStartY(), location.getEndX(), location.getEndY());
+				drawArrow(g2, location.getStartX(), location.getStartY(), location.getEndX(), location.getEndY(),1);
 			} else
-				g.drawLine(location.getStartX(), location.getStartY(), location.getEndX(), location.getEndY());
+				drawArrow(g2, location.getStartX(), location.getStartY(), location.getEndX(), location.getEndY(),0);
 		}
 
 	}
 
-	private void drawArrow(Graphics2D g, int x, int y, int xx, int yy) {
+	private void drawArrow(Graphics2D g, int x, int y, int xx, int yy,int mode) {
 		float arrowWidth = 10.0f;
 		float theta = 0.423f;
 		int[] xPoints = new int[3];
@@ -107,7 +107,14 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 		yPoints[1] = (int) (baseY + th * vecLeft[1]);
 		xPoints[2] = (int) (baseX - th * vecLeft[0]);
 		yPoints[2] = (int) (baseY - th * vecLeft[1]);
-
+		
+		if(mode == 1){
+			float[] dashingPattern3 = {10f, 10f, 1f, 10f};
+			Stroke stroke3 = new BasicStroke(4f, BasicStroke.CAP_SQUARE,
+			        BasicStroke.JOIN_MITER, 1.0f, dashingPattern3, 0.0f);
+			 
+			g.setStroke(stroke3);
+		}
 		g.drawLine(x, y, (int) baseX, (int) baseY);
 		g.fillPolygon(xPoints, yPoints, 3);
 	}
