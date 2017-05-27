@@ -61,7 +61,11 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 	private void drawClass(ClassObject classObj, int index) {
 		ClassPanel classPanel = new ClassPanel(classObj, this , index);
 		Location location = classObj.getClassLocation();
-		classPanel.setSize(classObj.getWidth()*12, classObj.getHeight()*15 +2);
+		if(classObj.getClassType().equals("Class")){
+			classPanel.setSize(classObj.getWidth()*12, classObj.getHeight()*15 +2);
+		}else {
+			classPanel.setSize(classObj.getWidth()*12, classObj.getHeight()*15 +2 + 15);
+		}
 		classPanel.setLocation(location.getStartX(), location.getStartY());
 		location.setEndX(location.getStartX() + classObj.getWidth()*12);
 		location.setEndY(location.getStartX() + classObj.getHeight()*15 + 2);
@@ -78,13 +82,9 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 
-		if (MainFrame.mode.equals("Class")) {
+		if (MainFrame.mode.equals("Class") || MainFrame.mode.equals("Interface") || MainFrame.mode.equals("Abstract")) {
 			info.addClassObject(new ClassObject("New Class" + (info.getClassList().size() + 1),
-					new Location(e.getX(), e.getY(), e.getX() + 100, e.getY() + 200)));
-			MainFrame.mode = "Normal";
-		} else if(MainFrame.mode.equals("Interface")) {
-			MainFrame.mode = "Normal";
-		} else if(MainFrame.mode.equals("Abstrace")) {
+					new Location(e.getX(), e.getY(), e.getX() + 100, e.getY() + 200), MainFrame.mode));
 			MainFrame.mode = "Normal";
 		}
 
@@ -147,7 +147,6 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 	}
 	public void changeClassInfo(ClassObject classObj, int index) {
 		info.getClassList().set(index, classObj);
-		System.out.println("change info => width = " + (classObj.getWidth()*15) + " , " + "height = " + classObj.getHeight()*15);
 		validate();
 		repaint();
 
