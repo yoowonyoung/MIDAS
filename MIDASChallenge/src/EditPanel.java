@@ -8,7 +8,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
@@ -131,13 +133,32 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 		if (MainFrame.mode.equals("Class") || MainFrame.mode.equals("Interface") || MainFrame.mode.equals("Abstract")) {
 			info.addClassObject(new ClassObject("New Class" + (info.getClassList().size() + 1),
 					new Location(e.getX(), e.getY(), e.getX() + 100, e.getY() + 200), MainFrame.mode));
 			MainFrame.mode = "Normal";
+		}else{
+			int x = e.getX();
+			int y = e.getY();
+			
+			for(RelationshipArrow arrow : this.info.getRelationshipArrowList()){
+				Location location = arrow.getArrowLocation();
+				Double distTo = Math.sqrt(Math.pow(Math.abs(location.getEndX()-x), 2)+Math.pow(Math.abs(location.getEndY()-y), 2));
+				Double distFrom = Math.sqrt(Math.pow(Math.abs(location.getStartX()-x), 2)+Math.pow(Math.abs(location.getStartY()-y), 2));
+				if(distTo < 50 || distFrom < 50){
+					int response = JOptionPane.showConfirmDialog(null, "Do you want to delete?", "Confirm",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (response == JOptionPane.NO_OPTION) {
+						System.out.println("No button clicked");
+					} else if (response == JOptionPane.YES_OPTION) {
+						arrow.getToObject().getArrowList().remove(arrow);
+						arrow.getFromObject().getArrowList().remove(arrow);
+						this.info.getRelationshipArrowList().remove(arrow);
+					}
+				}
+			}
 		}
-		// System.out.println("x : " + e.getX() + " , y : " + e.getY());
 	}
 
 	@Override
