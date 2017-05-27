@@ -30,9 +30,11 @@ public class TappedPane extends JTabbedPane {
 		operations.add("op1");
 		operations.add("op2");
 		Location location = new Location(100, 100, 200, 200);
+
 		PanelInformation info = new PanelInformation("info1");
 		info.addClassObject(new ClassObject("Test1", arrtibutes, operations, location, null, null));
 		EditPanel jp1 = new EditPanel(info);
+
 		arrtibutes.add("attr3");
 		operations.add("op3");
 		infos.add(info);

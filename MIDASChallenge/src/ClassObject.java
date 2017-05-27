@@ -9,11 +9,12 @@ import java.util.ArrayList;
  */
 public class ClassObject implements Serializable{
 	private String className;
-	private ArrayList<String> arrtibutes;
+	private ArrayList<String> attributes;
 	private ArrayList<String> operations;
 	private Location classLocation;
 	private RelationshipArrow myRelationshipArrow;
 	private ClassObject myRelationClassObject;
+	private int width = 0, height = 0;
 
 	/**
 	 * 맨 처음 빈 클래스 생성시 이름과 Location class만 받아서 생성한다.
@@ -31,16 +32,40 @@ public class ClassObject implements Serializable{
 		this(className, new ArrayList<String>(), new ArrayList<String>(), classLocation, null, null);
 	}
 
-	public ClassObject(String className, ArrayList<String> arrtibutes, ArrayList<String> operations,
+	public ClassObject(String className, ArrayList<String> attributes, ArrayList<String> operations,
 			Location classLocation, RelationshipArrow myRelationshipArrow, ClassObject myRelationClassObject) {
 		setClassName(className);
-		setArrtibutes(arrtibutes);
+		setAttributes(attributes);
 		setOperations(operations);
 		setClassLocation(classLocation);
 		setMyRelationshipArrow(myRelationshipArrow);
 		setMyRelationClassObject(myRelationClassObject);
+		calWidthAndHeight();
 	}
-
+	
+	private void calWidthAndHeight() {
+		width = className.length();
+		for(int i = 0; i < attributes.size(); i ++) {
+			if(width < attributes.get(i).length()) {
+				width = attributes.get(i).length();
+			}
+		}
+		for(int i = 0; i < operations.size(); i++) {
+			if(width < operations.get(i).length()) {
+				width = operations.get(i).length();
+			}
+		}
+		height = attributes.size() + operations.size() + 1;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
 	public String getClassName() {
 		return className;
 	}
@@ -49,12 +74,12 @@ public class ClassObject implements Serializable{
 		this.className = className;
 	}
 
-	public ArrayList<String> getArrtibutes() {
-		return arrtibutes;
+	public ArrayList<String> getAttributes() {
+		return attributes;
 	}
 
-	public void setArrtibutes(ArrayList<String> arrtibutes) {
-		this.arrtibutes = arrtibutes;
+	public void setAttributes(ArrayList<String> attributes) {
+		this.attributes = attributes;
 	}
 
 	public ArrayList<String> getOperations() {
