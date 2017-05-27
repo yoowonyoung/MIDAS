@@ -31,8 +31,9 @@ public class ClassObject implements Serializable{
 	public ClassObject(String className, Location classLocation) {
 		this(className, new ArrayList<String>(), new ArrayList<String>(), classLocation, null, null);
 		width = className.length();
-		System.out.println(width);
-		height = 3;
+		attributes.add(" ");
+		operations.add(" ");
+		calWidthAndHeight();
 	}
 
 	public ClassObject(String className, ArrayList<String> attributes, ArrayList<String> operations,

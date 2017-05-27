@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -12,7 +13,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 /**
  * 클래스 하나를 그리기 위한 패널
  * @author dnjsd
@@ -26,7 +26,6 @@ public class ClassPanel extends JPanel implements MouseListener{
 	private ClassObject classObjData;
 	private EditPanel BelongToEditPanel;
 	private int index;
-	private boolean dubbletab = false;
 	
 	public ClassPanel(ClassObject classObj, EditPanel editPanel, int index) {
 		this.classObjData = classObj;
@@ -39,7 +38,8 @@ public class ClassPanel extends JPanel implements MouseListener{
 		className = new JTextField(classObjData.getClassName());
 		location = classObjData.getClassLocation();
 		className.setLocation(0, 0);
-		className.setSize(classObjData.getWidth()*20 + 10, 25);
+		className.setFont(new Font("돋움", Font.PLAIN, 15));
+		className.setSize(classObjData.getWidth()*12, 15);
 		className.setBackground(Color.WHITE);
 		className.setBorder(new LineBorder(Color.black));
 		className.addMouseListener(this);
@@ -64,11 +64,12 @@ public class ClassPanel extends JPanel implements MouseListener{
 		//String[] attr = new String[]{"attributes"};
 		attributes = new JTable(convertData(classObjData.getAttributes()),new Object[]{"Attributes"});
 		//attributes = new JTable(classObj.getAttributes().toArray());
+		attributes.setFont(new Font("돋움", Font.PLAIN, 15));
 		attributes.setTableHeader(null);
 		attributes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		attributes.setLocation(0, 25);
-		attributes.getColumnModel().getColumn(0).setWidth(classObjData.getWidth()*20 + 10);
-		attributes.setSize(classObjData.getWidth()*20 + 10, classObjData.getAttributes().size()*20);
+		attributes.setLocation(0, 15);
+		attributes.getColumnModel().getColumn(0).setWidth(classObjData.getWidth()*15);
+		attributes.setSize(classObjData.getWidth()*12, classObjData.getAttributes().size()*15);
 		attributes.setBackground(Color.WHITE);
 		attributes.setBorder(new LineBorder(Color.black));
 		ListSelectionModel attributeSelectionModel = attributes.getSelectionModel();
@@ -91,33 +92,23 @@ public class ClassPanel extends JPanel implements MouseListener{
 					beforeData.set(row, (String) attributes.getValueAt(row, column));
 					classObjData.setAttributes(beforeData);
 				}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
-					if(!dubbletab) {
-						dubbletab = true;
-						ArrayList<String> beforeData = classObjData.getAttributes();
-						beforeData.add("new attr"+ (beforeData.size()+1));
-						classObjData.setAttributes(beforeData);
-						validate();
-						repaint();
-						BelongToEditPanel.changeClassInfo(classObjData, index);
-					}else {
-						ArrayList<String> beforeData = classObjData.getOperations();
-						beforeData.add("new op"+ (beforeData.size()+1));
-						classObjData.setOperations(beforeData);
-						validate();
-						repaint();
-						BelongToEditPanel.changeClassInfo(classObjData, index);
-					}
-					
+					ArrayList<String> beforeData = classObjData.getAttributes();
+					beforeData.add("new attr"+ (beforeData.size()+1));
+					classObjData.setAttributes(beforeData);
+					validate();
+					repaint();
+					BelongToEditPanel.changeClassInfo(classObjData, index);
 				}
 			}
 		});
 		add(attributes);
 		operations = new JTable(convertData(classObjData.getOperations()),new Object[]{"Operations"});
+		operations.setFont(new Font("돋움", Font.PLAIN, 15));
 		operations.setTableHeader(null);
 		operations.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		operations.getColumnModel().getColumn(0).setWidth(classObjData.getWidth()*20 + 10);
-		operations.setLocation(0, classObjData.getAttributes().size()*20 + 25);
-		operations.setSize(classObjData.getWidth()*20 + 10, classObjData.getOperations().size()*20);
+		operations.getColumnModel().getColumn(0).setWidth(classObjData.getWidth()*15);
+		operations.setLocation(0, classObjData.getAttributes().size()*15 + 15);
+		operations.setSize(classObjData.getWidth()*12, classObjData.getHeight()*15);
 		operations.setBackground(Color.WHITE);
 		operations.setBorder(new LineBorder(Color.black));
 		ListSelectionModel operationSelectionModel = operations.getSelectionModel();
@@ -137,7 +128,7 @@ public class ClassPanel extends JPanel implements MouseListener{
 					int column = operations.getSelectedColumn();
 					ArrayList<String> beforeData = classObjData.getOperations();
 					beforeData.set(row, (String) operations.getValueAt(row, column));
-					classObjData.setAttributes(beforeData);
+					classObjData.setOperations(beforeData);
 				}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 					ArrayList<String> beforeData = classObjData.getOperations();
 					beforeData.add("new op"+ (beforeData.size()+1));

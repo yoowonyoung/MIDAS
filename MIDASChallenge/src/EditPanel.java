@@ -61,7 +61,7 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 	private void drawClass(ClassObject classObj, int index) {
 		ClassPanel classPanel = new ClassPanel(classObj, this , index);
 		Location location = classObj.getClassLocation();
-		classPanel.setSize(classObj.getWidth()*20 + 10, classObj.getHeight()*20 + 25);
+		classPanel.setSize(classObj.getWidth()*12, classObj.getHeight()*15 +2);
 		classPanel.setLocation(location.getStartX(), location.getStartY());
 		classPanel.setBackground(Color.white);
 		classPanel.setBorder(new LineBorder(Color.black));
@@ -142,7 +142,7 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 	}
 	public void changeClassInfo(ClassObject classObj, int index) {
 		info.getClassList().set(index, classObj);
-		System.out.println("change info => width = " + (classObj.getWidth()*20 + 10) + " , " + "height = " + classObj.getHeight()*20 + 25);
+		System.out.println("change info => width = " + (classObj.getWidth()*15) + " , " + "height = " + classObj.getHeight()*15);
 		validate();
 		repaint();
 
