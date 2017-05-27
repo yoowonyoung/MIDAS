@@ -45,8 +45,10 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 			g.drawLine(0, y, 980, y);
 			y += 24;
 		}
-		for (int i = 0; i < info.getClassList().size(); i++) {
-			drawClass(info.getClassList().get(i));
+
+		for(int i = 0; i < info.getClassList().size(); i++){
+			drawClass(info.getClassList().get(i), i);
+
 		}
 
 		for (RelationshipArrow arrow : info.getRelationshipArrowList()) {
@@ -56,10 +58,10 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 
 	}
 
-	private void drawClass(ClassObject classObj) {
-		ClassPanel classPanel = new ClassPanel(classObj);
+	private void drawClass(ClassObject classObj, int index) {
+		ClassPanel classPanel = new ClassPanel(classObj, this , index);
 		Location location = classObj.getClassLocation();
-		classPanel.setSize(classObj.getWidth() * 25 + 10, classObj.getHeight() * 25 + 20);
+		classPanel.setSize(classObj.getWidth()*20 + 10, classObj.getHeight()*20 + 25);
 		classPanel.setLocation(location.getStartX(), location.getStartY());
 		classPanel.setBackground(Color.white);
 		classPanel.setBorder(new LineBorder(Color.black));
@@ -125,6 +127,7 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 		repaint();
 	}
 
+
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -134,6 +137,14 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
+
+
+	}
+	public void changeClassInfo(ClassObject classObj, int index) {
+		info.getClassList().set(index, classObj);
+		System.out.println("change info => width = " + (classObj.getWidth()*20 + 10) + " , " + "height = " + classObj.getHeight()*20 + 25);
+		validate();
+		repaint();
 
 	}
 }
