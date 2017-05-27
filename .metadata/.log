@@ -1122,3 +1122,13 @@ org.eclipse.core.runtime.CoreException: Cannot determine URI for '/MIDASChalleng
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1519)
 !SUBENTRY 2 org.eclipse.core.filebuffers 4 0 2017-05-27 16:09:50.651
 !MESSAGE Cannot determine URI for '/MIDASChallenge/src/Location.java'.
+!SESSION 2017-05-27 16:31:36.531 -----------------------------------------------
+eclipse.buildId=4.6.3.M20170301-0400
+java.version=1.8.0_131
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=ko_KR
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/wonjerry/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/wonjerry/.eclipse_keyring
+
+!ENTRY org.eclipse.core.net 1 0 2017-05-27 16:31:41.557
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences

@@ -1,3 +1,6 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 
 /*
@@ -10,7 +13,7 @@ import javax.swing.ImageIcon;
  *
  * @author wonjerry
  */
-public class SideBarPanel extends javax.swing.JPanel {
+public class SideBarPanel extends javax.swing.JPanel{
 
     /**
      * Creates new form SideBarPanel
@@ -42,10 +45,20 @@ public class SideBarPanel extends javax.swing.JPanel {
 
         drawClassPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        addClassBtn.setText("addClassBtn");
+        //addClassBtn.setText("addClassBtn");
 		ImageIcon classIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\classIcon2.png");
-
         addClassBtn.setIcon(classIcon);
+        addClassBtn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 액션리스너 달아야
+				//addClassBtn.setText("Class");
+				//addClassBtn.repaint();
+				MainFrame.mode = "Class";
+			}
+        	
+        });
 
         javax.swing.GroupLayout drawClassPanelLayout = new javax.swing.GroupLayout(drawClassPanel);
         drawClassPanel.setLayout(drawClassPanelLayout);
@@ -66,13 +79,36 @@ public class SideBarPanel extends javax.swing.JPanel {
 
         drawArrowPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        addDependencyArrowBtn.setText("addDependencyArrowBtn");
+        //addDependencyArrowBtn.setText("addDependencyArrowBtn");
         ImageIcon dependencyArrowIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\dependencyarrow.png");
-        addClassBtn.setIcon(dependencyArrowIcon);
+        addDependencyArrowBtn.setIcon(dependencyArrowIcon);
+        addDependencyArrowBtn.addActionListener(new ActionListener(){
 
-        addExtendsArrowBtn.setText("addExtendsArrowBtn");
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO 액션리스너 달아야
+				//addDependencyArrowBtn.setText("Dependency");
+				//addDependencyArrowBtn.repaint();
+				MainFrame.mode = "Dependency";
+			}
+        	
+        });
+
+        //addExtendsArrowBtn.setText("addExtendsArrowBtn");
         ImageIcon extendsArrowIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\extendsarrow.png");
-        addClassBtn.setIcon(extendsArrowIcon);
+        addExtendsArrowBtn.setIcon(extendsArrowIcon);
+        
+        addExtendsArrowBtn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 액션리스너 달아야
+				//addExtendsArrowBtn.setText("Extends");
+				//addExtendsArrowBtn.repaint();
+				MainFrame.mode = "Extends";
+			}
+        	
+        });
 
         javax.swing.GroupLayout drawArrowPanelLayout = new javax.swing.GroupLayout(drawArrowPanel);
         drawArrowPanel.setLayout(drawArrowPanelLayout);
