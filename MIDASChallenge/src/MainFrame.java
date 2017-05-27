@@ -3,23 +3,20 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileInputStream;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 /**
@@ -83,6 +80,43 @@ public class MainFrame extends JFrame {
 		ImageIcon redoIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\redoIcon.png");
 		redo.setMnemonic(KeyEvent.VK_R);
 		redo.setIcon(redoIcon);
+		JMenu erase = new JMenu("Erase");
+		ImageIcon eraseIcon = new ImageIcon(System.getProperty("user.dir") + "\\images\\eraseIcon.png");
+		erase.setMnemonic(KeyEvent.VK_E);
+		erase.setIcon(eraseIcon);
+		erase.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				mode = "Erase";
+				
+			}
+		});
 		JMenuItem newFile = new JMenuItem("New");
 		newFile.setToolTipText("새로 파일을 만듭니다");
 		newFile.addActionListener(new ActionListener() {
@@ -165,6 +199,7 @@ public class MainFrame extends JFrame {
 		menuBar.add(file);
 		menuBar.add(undo);
 		menuBar.add(redo);
+		menuBar.add(erase);
 		setJMenuBar(menuBar);
 	}
 
