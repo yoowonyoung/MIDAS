@@ -1,0 +1,227 @@
+
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.Scanner;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
+/*
+도형 그리는 패널
+JButton으로 도형 모양 조절
+RadioButton으로 도형 색 조절
+JButton들과 RadioButton들은 패널에 포함(add)시켜서 패널을 프레임에 포함시켰다. 그런데 다 하고 생각해 보니까 한 패널 안에서 도형이랑 버튼이랑 좌표찍기 다 하라는 말이었던 거 같다.
+마우스 클릭시 클릭 좌표 찍는 거는 그냥... 이거 수업시간에 하라 그래가지고... 그냥. 그냥 있는 거.
+*/
+
+class Sun {
+	public static void main(String args[]) {
+		//프레임 크기 지정해서 생
+		MyFrame frame = new MyFrame();
+		frame.setBounds(200, 100, 516, 589);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+	}
+}
+
+class MyFrame extends JFrame {
+	final int sNum = 3;
+	final int cNum = 6;
+	int shape = 0;
+	int color = 0;
+	// button
+	private JButton shapeButton[] = new JButton[sNum];// 모양버튼 세 개 (없음,네모,원)
+	private JRadioButton colorButton[] = new JRadioButton[cNum];// 색깔버튼 세 개
+																// (검정,하양,빨강,파랑)/////////
+	private ButtonGroup radioGroup = new ButtonGroup();
+	private final JLabel statusBar = new JLabel("Mouse ouside JPanel");
+	// panel
+	private Figure figure;
+	private final JPanel panel1 = new JPanel();// 모양버튼
+	private final JPanel panel2 = new JPanel();// 색깔버튼
+	private final JPanel panel3 = new JPanel();// 마우스위치 라벨
+	//
+	int i;
+
+	public MyFrame() {
+		super("Java");
+		setLayout(null);
+		getContentPane().setBackground(Color.lightGray); // 영역 보게
+		figure = new Figure(shape, color);
+		// 버튼 만들고 패널에 추가
+		shapeButton[0] = new JButton("Clear");
+		shapeButton[1] = new JButton("Rectangle");
+		shapeButton[2] = new JButton("Circle");
+		for (i = 0; i < sNum; i++)
+			panel1.add(shapeButton[i]);
+		colorButton[0] = new JRadioButton("black");
+		colorButton[1] = new JRadioButton("white");
+		colorButton[2] = new JRadioButton("red");
+		colorButton[3] = new JRadioButton("blue");
+		colorButton[4] = new JRadioButton("cyan");
+		colorButton[5] = new JRadioButton("pink");
+		
+		for (i = 0; i < cNum; i++)
+			radioGroup.add(colorButton[i]);// grouping
+		for (i = 0; i < cNum; i++)
+			panel2.add(colorButton[i]);
+		panel3.add(statusBar);
+		// Handlers
+		ButtonHandler handlerB = new ButtonHandler();
+		for (i = 0; i < sNum; i++)
+			shapeButton[i].addActionListener(handlerB);
+		RadioButtonHandler handlerR = new RadioButtonHandler();
+		for (i = 0; i < cNum; i++)
+			colorButton[i].addItemListener(handlerR);
+		MouseHandler handlerM = new MouseHandler();
+		panel3.addMouseListener(handlerM);
+		panel3.addMouseMotionListener(handlerM);
+		// 프레임에 패널 추가
+		add(figure);
+		figure.setSize(500, 399);
+		figure.setLocation(0, 50);
+		add(panel1);
+		panel1.setSize(500, 49);
+		panel1.setLocation(0, 0);
+		add(panel2);
+		panel2.setSize(500, 49);
+		panel2.setLocation(0, 450);
+		add(panel3);
+		panel3.setSize(500, 49);
+		panel3.setLocation(0, 500);
+	}
+
+	// private inner class for listener
+	private class ButtonHandler implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			for (i = 0; i < sNum; i++) {
+				if (e.getSource() == shapeButton[i]) {
+					shape = i;
+					break;
+				}
+			}
+			figure.setShape(shape);
+			repaint();
+		}
+	}
+
+	private class RadioButtonHandler implements ItemListener {
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			for (i = 0; i < cNum; i++) {
+				if (e.getSource() == colorButton[i]) {
+					color = i;
+					break;
+				}
+			}
+			figure.setColor(color);
+			repaint();
+		}
+	}
+
+	private class MouseHandler implements MouseListener, MouseMotionListener {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			statusBar.setText(String.format("Clicked at [%d,%d]", e.getX(), e.getY()));
+			repaint();
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			statusBar.setText(String.format("Pressed at [%d,%d]", e.getX(), e.getY()));
+			repaint();
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			statusBar.setText(String.format("Releaseded at [%d,%d]", e.getX(), e.getY()));
+			repaint();
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseMoved(MouseEvent e) {
+		}
+	}
+}
+
+class Figure extends JPanel {
+	private int shape;// 도형 종류: 0:없음; 1:사각형; 2:원
+	private int color;// 색
+
+	public Figure(int s, int c) {// 도형 종류 받아서 설정
+		shape = s;
+		color = c;
+	}
+
+	public void setShape(int s) {
+		shape = s;
+	}
+
+	public void setColor(int c) {
+		color = c;
+	}
+
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		//// set color
+		switch (color) {
+		case 1:
+			g.setColor(Color.WHITE);
+			break;
+		case 2:
+			g.setColor(Color.RED);
+			break;
+		case 3:
+			g.setColor(Color.BLUE);
+			break;
+		case 4:
+			g.setColor(Color.CYAN);
+			break;
+		case 5:
+			g.setColor(Color.PINK);
+			break;
+		default:
+			g.setColor(Color.BLACK);
+			break;
+		}
+		//// draw
+		switch (shape) {
+		case 1:
+			g.fillRect(100, 50, 300, 300);
+			break;
+		case 2:
+			g.fillOval(60, 10, 380, 380);
+			break;
+		// default: break; //case 0: do nothing
+		}
+	}
+}
