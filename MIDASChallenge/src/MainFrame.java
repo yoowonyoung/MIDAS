@@ -1,10 +1,16 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  * 화면을 구성하게될 메인 프레임, 상단목록과 좌측 사이드바, 편집화면을 가지게됨
@@ -50,11 +56,56 @@ public class MainFrame extends JFrame{
 		redo.setIcon(redoIcon);
 		JMenuItem newFile = new JMenuItem("New");
 		newFile.setToolTipText("새로 파일을 만듭니다");
+		newFile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String input = JOptionPane.showInputDialog("Enter File Name:");
+				System.out.println(input);
+			}
+		});
 		JMenuItem openFile = new JMenuItem("Open File");
 		openFile.setToolTipText("파일을 불러옵니다");
+		openFile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JFileChooser chooser = new JFileChooser();
+				int returnVal = chooser.showOpenDialog(MainFrame.this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+			        File file = chooser.getSelectedFile();
+			    }
+			}
+		});
 		JMenuItem saveFile = new JMenuItem("Save");
 		saveFile.setToolTipText("파일을 저장합니다");
+		saveFile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JDialog.setDefaultLookAndFeelDecorated(true);
+				int response = JOptionPane.showConfirmDialog(null, "Do you want to Save?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			    if (response == JOptionPane.NO_OPTION) {
+			      System.out.println("No button clicked");
+			    } else if (response == JOptionPane.YES_OPTION) {
+			      System.out.println("Yes button clicked");
+			    } else if (response == JOptionPane.CLOSED_OPTION) {
+			      System.out.println("JOptionPane closed");
+			    }
+			}
+		});
 		JMenuItem saveAsFile = new JMenuItem("Save As...");
+		saveAsFile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JFileChooser chooser = new JFileChooser();
+				int returnVal = chooser.showSaveDialog(MainFrame.this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+			        File file = chooser.getSelectedFile();
+			    }
+			}
+		});
 		saveAsFile.setToolTipText("파일을 다른 이름으로 저장합니다");
 		file.add(newFile);
 		file.add(openFile);
