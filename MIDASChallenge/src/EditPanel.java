@@ -41,6 +41,7 @@ public class EditPanel extends JPanel implements MouseListener{
 		for(int i = 0; i < info.getClassList().size(); i++){
 			drawClass(info.getClassList().get(i));
 		}
+		
 	}
 	
 	private void drawClass(ClassObject classObj) {

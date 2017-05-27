@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class Location implements Serializable {
 
-	private int startX, startY, midX, midY, endX, endY;
+	private int startX, startY, endX, endY;
 
 	public Location(int startX, int startY, int endX, int endY) {
 		setStartX(startX);
@@ -15,15 +15,7 @@ public class Location implements Serializable {
 		setEndX(endX);
 		setEndY(endY);
 	}
-
-	public Location(int startX, int startY, int midX, int midY, int endX, int endY) {
-		setStartX(startX);
-		setStartY(startY);
-		setMidX(midX);
-		setMidY(midY);
-		setEndX(endX);
-		setEndY(endY);
-	}
+	
 
 	public int getStartX() {
 		return startX;
@@ -56,22 +48,8 @@ public class Location implements Serializable {
 	public void setEndY(int endY) {
 		this.endY = endY;
 	}
-
-	public int getMidX() {
-		return midX;
-	}
-
-	public void setMidX(int midX) {
-		this.midX = midX;
-	}
-
-	public int getMidY() {
-		return midY;
-	}
-
-	public void setMidY(int midY) {
-		this.midY = midY;
-	}
+	
+	
 
 	// TODO can insert another calculate method
 

@@ -254,5 +254,5 @@ public class SideBarPanel extends javax.swing.JPanel {
         return true;
        
     }
-
+	// TODO modify 정보 로딩해야됨 
 }
