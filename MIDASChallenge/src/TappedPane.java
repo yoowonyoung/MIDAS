@@ -19,10 +19,10 @@ public class TappedPane extends JTabbedPane {
 			}
 		});
 		//큐를 이용해서 패널 정보를 불러 와야함
-		JPanel jp1 = new JPanel();
-		JPanel jp2 = new JPanel();
-		JPanel jp3 = new JPanel();
-		JPanel jp4 = new JPanel();
+		EditPanel jp1 = new EditPanel();
+		EditPanel jp2 = new EditPanel();
+		EditPanel jp3 = new EditPanel();
+		EditPanel jp4 = new EditPanel();
 		addTab("tap1", jp1);
 		addTab("tap2", jp2);
 		addTab("tap3", jp3);
