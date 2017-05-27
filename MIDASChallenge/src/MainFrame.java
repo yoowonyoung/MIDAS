@@ -29,6 +29,7 @@ public class MainFrame extends JFrame {
 	private final JSplitPane splitPane;
 	private final SideBarPanel sidebarPanel;
 	private final TappedPane editPanel;
+	private static String mode = "Class";
 	//xprivate final sideBarPenal sidePanel;
 	
 	public MainFrame() {
