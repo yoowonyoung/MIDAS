@@ -26,11 +26,12 @@ public class MainFrame extends JFrame{
 	private int height = 1024;
 	private final JSplitPane splitPane;
 	private final JPanel sidebarPanel;
-	private final TappedPane editPanel;
+	private final EditPanel editPanel;
+	public static String drawMode = "Class";
 	
 	public MainFrame() {
-		sidebarPanel = new JPanel();
-		editPanel = new TappedPane();
+		sidebarPanel = new EditPanel();
+		editPanel = new EditPanel();
 		splitPane = new JSplitPane();
 		initUI();
 	}
