@@ -8,9 +8,11 @@ import javax.swing.JTabbedPane;
  *
  */
 public class TappedPane extends JTabbedPane {
-	private PanelInformation infos[] = new PanelInformation[2];
+	private ArrayList<PanelInformation> infos = new ArrayList<PanelInformation>();
+	
 	public TappedPane() {
 		initUI();
+		//this.getSelectedIndex();
 	}
 	
 	public void initUI() {
@@ -28,18 +30,36 @@ public class TappedPane extends JTabbedPane {
 		operations.add("op1");
 		operations.add("op2");
 		Location location = new Location(100, 100, 200, 200);
-		infos[0] = new PanelInformation();
-		infos[0].addClassObject(new ClassObject("Test1", arrtibutes, operations, location, null, null));
-		EditPanel jp1 = new EditPanel(infos[0]);
+		PanelInformation info = new PanelInformation("info1");
+		info.addClassObject(new ClassObject("Test1", arrtibutes, operations, location, null, null));
+		EditPanel jp1 = new EditPanel(info);
 		arrtibutes.add("attr3");
 		operations.add("op3");
-		infos[1] = new PanelInformation();
-		infos[1].addClassObject(new ClassObject("Test1", arrtibutes, operations, location, null, null));
-		EditPanel jp2 = new EditPanel(infos[1]);
+		infos.add(info);
+		PanelInformation info2 = new PanelInformation("info2");
+		info2.addClassObject(new ClassObject("Test1", arrtibutes, operations, location, null, null));
+		EditPanel jp2 = new EditPanel(info2);
+		infos.add(info2);
 		
 		addTab("tap1", jp1);
 		addTab("tap2", jp2);
 		
 
+	}
+	
+	public void addInfo(PanelInformation getInfo){
+		this.infos.add(getInfo);
+	}
+
+	public ArrayList<PanelInformation> getInfos() {
+		return infos;
+	}
+
+	public void setInfos(ArrayList<PanelInformation> infos) {
+		this.infos = infos;
+	}
+	
+	public PanelInformation getNowSelectedInfo(){
+		return infos.get(this.getSelectedIndex());
 	}
 }

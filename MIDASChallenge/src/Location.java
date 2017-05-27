@@ -1,9 +1,11 @@
+import java.io.Serializable;
+
 /**
  * 
  * @author wonjerry 클래스 또는 화살표의 위치정보 및 좌표연산 관련 클래스 좌표 연산 관련 메소드가 추가 될 수 있다.
  *
  */
-public class Location {
+public class Location implements Serializable{
 
 	private int startX, startY, endX, endY;
 
