@@ -21,6 +21,7 @@ public class DialgFrame extends javax.swing.JFrame {
 	
 	private PanelInformation info;
 	private int tabNum;
+
 	private int mode ; 
     public DialgFrame(PanelInformation info, int tabnum , int mode) {
     	this.info = info;
