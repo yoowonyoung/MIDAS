@@ -51,6 +51,7 @@ public class ClassPanel extends JPanel implements MouseListener{
 				}
 			}
 		});
+		className.addMouseListener(this);
 		/*
 		className.addActionListener(new ActionListener() {	
 			@Override
@@ -89,6 +90,7 @@ public class ClassPanel extends JPanel implements MouseListener{
 					int row = attributes.getSelectedRow();
 					int column = attributes.getSelectedColumn();
 					ArrayList<String> beforeData = classObjData.getAttributes();
+					System.out.println(row + " , " + column);
 					beforeData.set(row, (String) attributes.getValueAt(row, column));
 					classObjData.setAttributes(beforeData);
 				}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
@@ -101,6 +103,7 @@ public class ClassPanel extends JPanel implements MouseListener{
 				}
 			}
 		});
+		attributes.addMouseListener(this);
 		add(attributes);
 		operations = new JTable(convertData(classObjData.getOperations()),new Object[]{"Operations"});
 		operations.setFont(new Font("돋움", Font.PLAIN, 15));
@@ -139,6 +142,7 @@ public class ClassPanel extends JPanel implements MouseListener{
 				}
 			}
 		});
+		operations.addMouseListener(this);
 		add(operations);
 	}
 	
@@ -172,6 +176,9 @@ public class ClassPanel extends JPanel implements MouseListener{
 		// TODO Auto-generated method stub
 		attributes.clearSelection();
 		operations.clearSelection();
+		if(MainFrame.mode.equals("Erase")) {
+			BelongToEditPanel.deleteClassInfo(index);
+		}
 	}
 
 	@Override

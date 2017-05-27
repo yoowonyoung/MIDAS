@@ -111,7 +111,6 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 				}
 			}
 		}
-
 	}
 
 	@Override
@@ -143,6 +142,13 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 	public void changeClassInfo(ClassObject classObj, int index) {
 		info.getClassList().set(index, classObj);
 		System.out.println("change info => width = " + (classObj.getWidth()*15) + " , " + "height = " + classObj.getHeight()*15);
+		validate();
+		repaint();
+
+	}
+	
+	public void deleteClassInfo(int index) {
+		info.getClassList().remove(index);
 		validate();
 		repaint();
 

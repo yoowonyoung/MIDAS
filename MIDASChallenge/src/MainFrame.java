@@ -114,7 +114,8 @@ public class MainFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				mode = "Erase";
-				
+				validate();
+				repaint();
 			}
 		});
 		JMenuItem newFile = new JMenuItem("New");
