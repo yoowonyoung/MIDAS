@@ -96,7 +96,7 @@ public class DialgFrame extends javax.swing.JFrame {
 					Location location = new Location((class1Location.getStartX()+class1Location.getEndX())/2,class1Location.getStartY(),(class2Location.getStartX()+class2Location.getEndX())/2,class2Location.getEndY());
 					//((EditPanel)MainFrame.editPanel.getTabComponentAt(tabNum)).setArrorwlocation(location);
 					System.out.println("in dialogFrame location : " + location);
-					info.addRelationshipArrow(new RelationshipArrow(location, "Dependency"));
+					info.addRelationshipArrow(new RelationshipArrow(class1, class2,location, "Dependency"));
 					MainFrame.editPanel.repaint();
 				}
 				DialgFrame.this.dispose();

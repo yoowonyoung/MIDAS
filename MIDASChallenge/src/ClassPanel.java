@@ -120,6 +120,7 @@ public class ClassPanel extends JPanel implements MouseListener{
 					ArrayList<String> beforeData = classObjData.getAttributes();
 					beforeData.add("new attr"+ (beforeData.size()+1));
 					classObjData.setAttributes(beforeData);
+					
 					validate();
 					repaint();
 					BelongToEditPanel.changeClassInfo(classObjData, index);

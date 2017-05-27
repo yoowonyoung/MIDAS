@@ -55,6 +55,8 @@ public class RelationshipArrow implements Serializable{
 	public void setRule(String rule) {
 		this.rule = rule;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {
