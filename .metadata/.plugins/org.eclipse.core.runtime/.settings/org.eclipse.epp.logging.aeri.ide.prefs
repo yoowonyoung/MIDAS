@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 eclipse.preferences.version=1
 resetSendMode=KEEP
 resetSendModeOn=0
 sendMode=NOTIFY
+=======
+configured=true
+eclipse.preferences.version=1
+resetSendMode=KEEP
+resetSendModeOn=0
+sendMode=NEVER
+>>>>>>> branch 'master' of https://github.com/yoowonyoung/MIDAS
