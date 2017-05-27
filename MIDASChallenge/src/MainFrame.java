@@ -40,7 +40,7 @@ public class MainFrame extends JFrame{
 	 */
 	public void initUI() {
 		splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
-		splitPane.setDividerLocation(380);
+		splitPane.setDividerLocation(300);
 		splitPane.setLeftComponent(sidebarPanel);
 		sidebarPanel.setBackground(Color.WHITE);
 		splitPane.setRightComponent(editPanel);
