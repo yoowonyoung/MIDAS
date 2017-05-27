@@ -147,10 +147,18 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 				Double distTo = Math.sqrt(Math.pow(Math.abs(location.getEndX()-x), 2)+Math.pow(Math.abs(location.getEndY()-y), 2));
 				Double distFrom = Math.sqrt(Math.pow(Math.abs(location.getStartX()-x), 2)+Math.pow(Math.abs(location.getStartY()-y), 2));
 				if(distTo < 50 || distFrom < 50){
-					int response = JOptionPane.showConfirmDialog(null, "Do you want to delete?", "Confirm",
+					int response = JOptionPane.showConfirmDialog(null, "Do you want to delete(yes to delete/no to modify)?", "Confirm",
 							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if (response == JOptionPane.NO_OPTION) {
-						System.out.println("No button clicked");
+						PanelInformation info = MainFrame.editPanel.getNowSelectedInfo();
+						int tabNum = MainFrame.editPanel.getNowSelectedIndex();
+						arrow.getToObject().getArrowList().remove(arrow);
+						arrow.getFromObject().getArrowList().remove(arrow);
+						this.info.getRelationshipArrowList().remove(arrow);
+						if(info.getClassList().size() > 1){
+							DialgFrame frame = new DialgFrame(info,tabNum, true);
+							frame.setVisible(true);
+						}
 					} else if (response == JOptionPane.YES_OPTION) {
 						arrow.getToObject().getArrowList().remove(arrow);
 						arrow.getFromObject().getArrowList().remove(arrow);

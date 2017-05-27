@@ -21,9 +21,12 @@ public class DialgFrame extends javax.swing.JFrame {
 	
 	private PanelInformation info;
 	private int tabNum;
-    public DialgFrame(PanelInformation info, int tabnum) {
+	//true면 추가 false면 수정or삭제
+	private boolean addOrModify;
+    public DialgFrame(PanelInformation info, int tabnum, boolean addOrModify) {
     	this.info = info;
     	this.tabNum = tabNum;
+    	this.addOrModify = addOrModify;
         initComponents();
     }
 

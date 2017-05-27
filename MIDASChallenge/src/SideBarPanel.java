@@ -151,7 +151,7 @@ public class SideBarPanel extends javax.swing.JPanel {
 					PanelInformation info = MainFrame.editPanel.getNowSelectedInfo();
 					int tabNum = MainFrame.editPanel.getNowSelectedIndex();
 					if(info.getClassList().size() > 1){
-						DialgFrame frame = new DialgFrame(info,tabNum);
+						DialgFrame frame = new DialgFrame(info,tabNum, true);
 						frame.setVisible(true);
 					}
 				}
