@@ -1,3 +1,5 @@
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -6,49 +8,68 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class FileChooser{
-	
+public class FileChooser {
 
-    private final JFileChooser fileChooser = new JFileChooser();              
-    private JFrame frm;
-	public FileChooser(JFrame frame)//flag 0이면 오픈 1이면 저장
+	private final JFileChooser fileChooser = new JFileChooser();
+	private JFrame frm;
+
+	public FileChooser(JFrame frame)// flag 0이면 오픈 1이면 저장
 	{
 		fileChooser.addChoosableFileFilter(new FileFilter() {
-			
+
 			@Override
 			public String getDescription() {
 				// TODO Auto-generated method stub
 				return "*.dat file";
 			}
-			
+
 			@Override
 			public boolean accept(File file) {
 				// TODO Auto-generated method stub
-				if(file.isDirectory()) {
+				if (file.isDirectory()) {
 					return true;
-				}else {
+				} else {
 					return file.getName().endsWith(".dat");
 				}
 			}
 		});
 		this.frm = frm;
-    }
-	
-	PanelInformation openFile(){
+	}
+
+	void saveAsImage(JPanel panel) {
+
+		int w = panel.getWidth();
+		int h = panel.getHeight();
+		BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g = bi.createGraphics();
+		panel.paint(g);
+
+		// 해당경로에 이미지를 저장함.
+		try {
+			ImageIO.write(bi, "jpg", new File("document.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	PanelInformation openFile() {
 		int returnVal = fileChooser.showOpenDialog(frm);
-        if( returnVal == JFileChooser.APPROVE_OPTION)
-        {
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			try {
 				FileInputStream fis = new FileInputStream(fileChooser.getSelectedFile().toString());
 				ObjectInputStream ois = new ObjectInputStream(fis);
-				
-				PanelInformation document = (PanelInformation)ois.readObject();
-				// 가져 오고 나서 리스트에 추가 
+
+				PanelInformation document = (PanelInformation) ois.readObject();
+				// 가져 오고 나서 리스트에 추가
 				return document;
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -60,41 +81,35 @@ public class FileChooser{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }
-        else
-        {
-            System.out.println("취소합니다");
-        }
-        return null;
+		} else {
+			System.out.println("취소합니다");
+		}
+		return null;
 	}
-	
-	void saveFile(PanelInformation panelInformation){
+
+	void saveFile(PanelInformation panelInformation) {
 		int returnVal = fileChooser.showSaveDialog(frm);
-        if( returnVal == JFileChooser.APPROVE_OPTION)
-        {
-        	try {
-        		String path = fileChooser.getSelectedFile().toString();
-        		String pathsplit[] = fileChooser.getSelectedFile().toString().split("/");
-        		String fileName = pathsplit[pathsplit.length-1];
-        		System.out.println(fileName);
-        		panelInformation.setDocumentName(fileName); 
-        		FileOutputStream fos = new FileOutputStream(path + ".dat");
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			try {
+				String path = fileChooser.getSelectedFile().toString();
+				String pathsplit[] = fileChooser.getSelectedFile().toString().split("/");
+				String fileName = pathsplit[pathsplit.length - 1];
+				System.out.println(fileName);
+				panelInformation.setDocumentName(fileName);
+				FileOutputStream fos = new FileOutputStream(path + ".dat");
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
 				oos.writeObject(panelInformation);
 				oos.close();
-        	} catch (FileNotFoundException e) {
+			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }
-        else
-        {
-            System.out.println("취소합니다");
-        }
+		} else {
+			System.out.println("취소합니다");
+		}
 	}
 
-    
 }

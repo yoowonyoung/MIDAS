@@ -6,6 +6,7 @@ import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.JDialog;
@@ -34,6 +35,8 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 	public void initUI() {
 		setBackground(Color.white);
 	}
+	
+	
 
 	/**
 	 * 배경의 격자무늬를 생성하기 위해 PaintComponent 사용
@@ -218,8 +221,6 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-
-
 	}
 
 	public void changeClassInfo(ClassObject classObj, int index) {
@@ -228,7 +229,6 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 		
 		for (RelationshipArrow ele : obj.getArrowList()) {
 			if (ele.getToObject().equals(obj)) {
-				System.out.println("들어옴???");
 				Location temp = classObj.getClassLocation();
 				Location location = new Location((temp.getStartX() + temp.getEndX()) / 2, temp.getEndY(),
 						ele.getArrowLocation().getEndX(), ele.getArrowLocation().getEndY());
@@ -247,6 +247,8 @@ public class EditPanel extends JPanel implements MouseListener, MouseMotionListe
 	}
 
 	public void deleteClassInfo(int index) {
+		//여기때매 클래스 안지워
+		info.getClassList().get(index).getClassName();
 		info.getClassList().remove(index);
 		validate();
 		repaint();

@@ -302,7 +302,7 @@ public class SideBarPanel extends javax.swing.JPanel {
        
     }
 	
-	public boolean addNode(PanelInformation info) {//노드 받아서 지울꺼 
+	public boolean addNode(PanelInformation info) {
 
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode)jTree1.getModel().getRoot();
 		DefaultMutableTreeNode searchNodes = getSearchNodes(root ,info.getDocumentName());
