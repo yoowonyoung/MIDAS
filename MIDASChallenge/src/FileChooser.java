@@ -53,11 +53,12 @@ public class FileChooser {
 
 		// 해당경로에 이미지를 저장함.
 		try {
-			ImageIO.write(bi, "jpg", new File("document.png"));
+			ImageIO.write(bi, "PNG", new File("project.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println();
 
 	}
 

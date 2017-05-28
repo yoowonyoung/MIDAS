@@ -254,7 +254,6 @@ public class SideBarPanel extends javax.swing.JPanel {
 			
 			DefaultMutableTreeNode classnode = new DefaultMutableTreeNode(classes.getClassName());
 			
-			System.out.println("in refresh Tree" + node.getUserObject());
 			for(String attr : classes.getAttributes()){
 				classnode.add(new DefaultMutableTreeNode(attr));
 			}

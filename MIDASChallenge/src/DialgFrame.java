@@ -47,7 +47,7 @@ public class DialgFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DialgFrame.DISPOSE_ON_CLOSE);
         String[] list = new String[info.getClassList().size()];
         System.out.println("in dialog : " + info.getClassList());
         for(int i=0; i<info.getClassList().size(); i++){

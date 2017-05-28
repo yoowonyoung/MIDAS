@@ -104,10 +104,10 @@ public class MainFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				mode = "Erase";
-				validate();
-				repaint();
+				
 			}
 		});
+		
 		JMenu saveImage = new JMenu("Image");
 		ImageIcon saveIcon = new ImageIcon(getClass().getResource("saveIcon.png"));
 		saveImage.setMnemonic(KeyEvent.VK_I);
@@ -141,7 +141,10 @@ public class MainFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-
+				mode = "saveAsImage";
+				
+				validate();
+				repaint();
 			}
 		});
 		JMenuItem newFile = new JMenuItem("New");
