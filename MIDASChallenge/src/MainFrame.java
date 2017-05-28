@@ -109,6 +109,42 @@ public class MainFrame extends JFrame {
 				repaint();
 			}
 		});
+		JMenu saveImage = new JMenu("Image");
+		ImageIcon saveIcon = new ImageIcon(getClass().getResource("saveIcon.png"));
+		saveImage.setMnemonic(KeyEvent.VK_I);
+		saveImage.setIcon(saveIcon);
+		saveImage.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		JMenuItem newFile = new JMenuItem("New");
 		newFile.setToolTipText("새로 파일을 만듭니다");
 		newFile.addActionListener(new ActionListener() {
@@ -190,6 +226,7 @@ public class MainFrame extends JFrame {
 		file.add(saveAsFile);
 		menuBar.add(file);
 		menuBar.add(erase);
+		menuBar.add(saveImage);
 		setJMenuBar(menuBar);
 	}
 
